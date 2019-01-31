@@ -4,6 +4,40 @@ from datetime import datetime
 
 
 class ColorFormatter(logging.Formatter):
+	"""
+	Example usage:
+	
+	LOGGING = {
+		'version': 1,
+		'disable_existing_loggers': False,
+		'formatters': {
+			'colors': {
+				'()': 'util.colorlog.ColorFormatter',
+			},
+			'stamp': {
+				'format': '%(asctime)s %(name)s [%(levelname)s] %(message)s',
+				# 'format': '%(asctime)s %(name)s %(module)s [%(levelname)s] %(message)s',
+			},
+		},
+		'handlers': {
+			'console': {
+				'class': 'logging.StreamHandler',
+				'formatter': 'colors',
+			},
+		},
+		'loggers': {
+			# 'django': {
+			# 	'handlers': ['console'],
+			# 	'level': 'DEBUG',
+			# },
+			'dialer': {
+				'handlers': ['console'],
+				'level': 'DEBUG',
+			},
+		},
+	}
+	"""
+	
 	def __init__(self, *args, **kwargs):
 		super(ColorFormatter, self).__init__()
 
