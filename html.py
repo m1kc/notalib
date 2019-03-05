@@ -23,9 +23,17 @@ def strip_tags(s, fast_and_dirty=False):
 		p = MLStripper()
 		p.feed(s)
 		return p.get_data()
-	
-	
+
+
 class TablePrinter():
+	"""
+	Prints an HTML table, row by row, from the given data, using attrs or
+	dictionary keys as columns.
+
+	Two ways to use it:
+	* Call header() / entry() / footer() manually
+	* Pass an iterable to iterator_over()
+	"""
 	def __init__(self, cols=(), use_attrs=False):
 		self.cols = cols
 		self._get = getattr if use_attrs else lambda arr, i: arr[i]
