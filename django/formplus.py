@@ -1,4 +1,4 @@
-from .date import parse_month
+from ..date import parse_month
 from django import forms
 
 
