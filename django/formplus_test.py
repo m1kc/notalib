@@ -1,4 +1,4 @@
-from pyutil.django.formplus import MonthArrayField
+from .formplus import MonthArrayField
 
 from collections import namedtuple
 
