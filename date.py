@@ -1,3 +1,5 @@
+from .array import ensure_iterable
+
 import arrow
 
 
@@ -5,12 +7,6 @@ def parse_month(yyyy_mm):
 	a = arrow.get(yyyy_mm, 'YYYY-M')
 	return (a.year, a.month)
 
-
-def ensure_iterable(x):
-	if isinstance(x, list): return x
-	if isinstance(x, tuple): return x
-	# TODO other cases
-	return (x,)
 
 def parse_date(s, format_or_formats):
 	d = None

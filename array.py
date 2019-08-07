@@ -4,3 +4,10 @@ def as_chunks(l, n):
 	"""
 	for i in range(0, len(l), n):
 		yield l[i:i + n]
+
+
+def ensure_iterable(x):
+	if isinstance(x, list): return x
+	if isinstance(x, tuple): return x
+	# TODO other cases
+	return (x,)
