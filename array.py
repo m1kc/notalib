@@ -2,6 +2,7 @@ def as_chunks(l, n):
 	"""
 	Yield successive n-sized chunks from l.
 	"""
+	assert n >= 1
 	for i in range(0, len(l), n):
 		yield l[i:i + n]
 
