@@ -17,6 +17,7 @@ pytest-cov = "^2.7"
 hypothesis = "^4.32"
 hypothesis-django = "^2.0"
 hypothesis-numpy = "^2.0"
+flake8 = "^3.7"
 
 [build-system]
 requires = ["poetry>=0.12"]

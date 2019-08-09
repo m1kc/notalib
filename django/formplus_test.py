@@ -35,4 +35,7 @@ def test_MonthArrayField():
 def test_MonthArrayField_correctness(source):
 	source_str = '|'.join(map(lambda x: '-'.join(str(x).split('-')[:2]), source))
 	f = MonthArrayField()
-	f.clean(source_str)
+	result = f.clean(source_str)
+	for i in range(0, len(result)):
+		assert result[i][0] == source[i].year
+		assert result[i][1] == source[i].month

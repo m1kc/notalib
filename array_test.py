@@ -28,16 +28,32 @@ def test_as_chunks():
 @given(lists(integers()), integers(min_value=1))
 def test_as_chunks_correctness(source, x):
 	result = _collect(as_chunks(source, x))
+	num_short = 0
+	last_short = False
 	for e in result:
 		assert len(e) <= x
+		if len(e) < x:
+			num_short += 1
+			last_short = True
+	assert num_short <= 1
+	if num_short > 0:
+		assert last_short
 	assert(_flatten(result) == source)
 
 
 @given(lists(integers(), max_size=10), integers(min_value=1, max_value=20))
 def test_as_chunks_smallscale(source, x):
 	result = _collect(as_chunks(source, x))
+	num_short = 0
+	last_short = False
 	for e in result:
 		assert len(e) <= x
+		if len(e) < x:
+			num_short += 1
+			last_short = True
+	assert num_short <= 1
+	if num_short > 0:
+		assert last_short
 	assert(_flatten(result) == source)
 
 
