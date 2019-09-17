@@ -13,7 +13,7 @@ class FilterSet:
 		for f in self._required:
 			assert (f in kwargs), f"Field `{f}` is mandatory"
 		for key in kwargs:
-			assert key in self._fields
+			assert key in self._fields, f"Unknown field `{key}`"
 		self.values = kwargs
 
 	def __getattr__(self, name: str):
