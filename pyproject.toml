@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pyutil"
+name = "notalib"
 version = "1.0.0"
 description = ""
 authors = ["m1kc (Max Musatov) <m1kc@yandex.ru>"]
