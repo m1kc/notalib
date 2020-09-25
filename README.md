@@ -15,11 +15,22 @@ Collection of small Python utility functions and classes. Some are written by me
 #### notalib.hypertext.strip_tags :fire:
 #### notalib.hypertext.TablePrinter :fire:
 #### notalib.polosa.polosa :fire: :fire: :fire: :fire: :fire:
+
+```
+18023/2000000   294.8/sec   Processing transaction ID#84378473 (2020-01-04)
+```
+
+The CLI progress indicator you've always dreamt of: shows current and total if available, measures current speed, can show your comments for each element, makes sure not to slow down your terminal with frequent updates. [See this short demo](https://asciinema.org/a/UI1aOqjQC1KXx303kaVGrxjQp)
+
 #### notalib.range.Range
 #### notalib.time.Timing :fire:
 #### notalib.trendsetter.Trendsetter :fire:
 
+## Pandas-related
+
 #### notalib.pandas.pandasplus.row_to_dict
+
+## Django-related
 
 #### notalib.django.auth.StaticBackend
 #### notalib.django.auth.SettingsBackend
