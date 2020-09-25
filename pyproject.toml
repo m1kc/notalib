@@ -1,9 +1,17 @@
 [tool.poetry]
 name = "notalib"
-version = "1.0.1"
-description = ""
+version = "1.0.2"
+description = "A collection of utility functions & classes"
 authors = ["m1kc (Max Musatov) <m1kc@yandex.ru>"]
 license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/m1kc/notalib"
+repository = "https://github.com/m1kc/notalib.git"
+documentation = "https://github.com/m1kc/notalib"
+keywords = ["utility", "django", "pandas"]
+classifiers = [
+    "Operating System :: OS Independent",
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
