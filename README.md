@@ -2,6 +2,20 @@
 
 Collection of small Python utility functions and classes. Some are written by me, some are taken from StackOverflow and customized (I tried to provide links to original sources where possible). This repo never aimed to be a library of any sort (but now it is).
 
+## Install
+
+```sh
+pip install notalib
+```
+
+Or with [poetry](https://python-poetry.org/):
+
+```sh
+poetry add notalib
+```
+
+## Utils included
+
 #### notalib.array.as_chunks :fire:
 #### notalib.array.ensure_iterable :fire:
 #### notalib.combinator.Combinator :fire:
