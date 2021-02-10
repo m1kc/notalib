@@ -38,6 +38,27 @@ The CLI progress indicator you've always dreamt of: shows current and total if a
 
 #### notalib.range.Range
 #### notalib.time.Timing :fire:
+
+Measures time spent on executing your code. Killer feature: it can be used as a reusable context.
+
+```python
+timing = Timing()
+...
+with timing:
+    do_something()
+# That's it, do something with the measurement
+log(f'Operation took {timing.result} sec')
+```
+
+If you just want to print measurements into console, there's a shorthand:
+
+```python
+timing = Timing(auto_print=True)
+...
+with timing:
+    do_something()
+```
+
 #### notalib.trendsetter.Trendsetter :fire:
 
 ## Pandas-related
