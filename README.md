@@ -34,7 +34,24 @@ poetry add notalib
 18023/2000000   294.8/sec   Processing transaction ID#84378473 (2020-01-04)
 ```
 
-The CLI progress indicator you've always dreamt of: shows current and total if available, measures current speed, can show your comments for each element, makes sure not to slow down your terminal with frequent updates. [See this short demo](https://asciinema.org/a/UI1aOqjQC1KXx303kaVGrxjQp)
+The CLI progress indicator you've always dreamt of: shows current and total if available, measures current speed, can show your comments for each element, makes sure not to slow down your terminal with frequent updates. [See this short demo](https://asciinema.org/a/UI1aOqjQC1KXx303kaVGrxjQp).
+
+_Cheat sheet_
+
+```python
+## Basic usage
+with polosa() as p:
+    p.tick()
+# 467344   201.2/sec
+
+## Specify total number of elements:
+with polosa(total=1337) as p:
+# 26/1337   1.2/sec
+
+## Print something useful about every element:
+p.tick(caption=my_order.time_created)
+# 1723910/2000000   319231.2/sec   2020-01-01 15:37:00
+```
 
 #### notalib.range.Range
 #### notalib.time.Timing :fire:
