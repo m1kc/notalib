@@ -17,7 +17,38 @@ poetry add notalib
 ## Utils included
 
 #### notalib.array.as_chunks :fire:
+
+Iterates over your array in chunks of at most N elements.
+
+```python
+from notalib.array import as_chunks
+
+arr = [1,2,3,4,5]
+for chunk in as_chunks(arr, 2):
+    print(chunk)
+# [1,2]
+# [3,4]
+# [5]
+```
+
 #### notalib.array.ensure_iterable :fire:
+
+Keeps iterable things like lists intact, turns single values into single-element lists. Useful for functions that can accept both.
+
+```python
+ensure_iterable([1,2,3])  # --> [1,2,3]
+ensure_iterable((1,2,3))  # --> (1,2,3)
+ensure_iterable(1)        # --> [1]
+ensure_iterable('smth')   # --> ['smth']
+
+def my_function(one_or_multiple_args):
+    for arg in ensure_iterable(one_or_multiple_args):
+        ...
+        
+my_function(['log', 'smog'])
+my_function('dog')
+```
+
 #### notalib.combinator.Combinator :fire:
 #### notalib.date.parse_month
 #### notalib.date.parse_date
