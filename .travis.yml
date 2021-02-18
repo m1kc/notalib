@@ -17,5 +17,5 @@ install:
 
 script:
   #- pytest
-  - coverage run --source=notalib -m pytest
+  - coverage run --source=notalib -m pytest --ignore=notalib/django
   - coveralls
