@@ -12,6 +12,10 @@ python:
 install:
   - pip install poetry
   - poetry install
+  # coveralls
+  - pip install coveralls pyyaml
 
 script:
-  - pytest
+  #- pytest
+  - coverage run --source=notalib -m pytest --ignore=notalib/django
+  - coveralls
