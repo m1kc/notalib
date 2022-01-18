@@ -31,8 +31,30 @@ class TablePrinter():
 	dictionary keys as columns.
 
 	Two ways to use it:
+
 	* Call header() / entry() / footer() manually
+	
+	```
+	>>> from notalib.hypertext import TablePrinter
+	>>> t = TablePrinter(['a', 'b'])
+	>>> t.header()
+	'<table><thead><tr><th>a</th><th>b</th></tr></thead><tbody>'
+	>>> t.entry({'a': 1, 'b': 2})
+	'<tr><td>1</td><td>2</td></tr>\n'
+	>>> t.entry({'a': 11, 'b': 22})
+	'<tr><td>11</td><td>22</td></tr>\n'
+	>>> t.footer()
+	'</tbody></table>'
+	```
+
 	* Pass an iterable to iterator_over()
+	
+	```
+	>>> from notalib.hypertext import TablePrinter
+	>>> t = TablePrinter(['a', 'b'])
+	>>> list(t.iterator_over([ {'a': 11, 'b': 22} ]))
+	['<table><thead><tr><th>a</th><th>b</th></tr></thead><tbody>', '<tr><td>11</td><td>22</td></tr>\n', '</tbody></table>']
+	```
 	"""
 	def __init__(self, cols=(), use_attrs=False):
 		self.cols = cols
