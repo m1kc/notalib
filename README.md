@@ -59,6 +59,37 @@ my_function('dog')
 #### notalib.format.format_long_list
 #### notalib.hypertext.strip_tags :fire:
 #### notalib.hypertext.TablePrinter :fire:
+
+Prints an HTML table, row by row, from the given data, using attrs or dictionary keys as columns.
+
+Two ways to use it:
+
+* Call header() / entry() / footer() manually
+
+```python
+from notalib.hypertext import TablePrinter
+t = TablePrinter(['a', 'b'])
+t.header()
+# '<table><thead><tr><th>a</th><th>b</th></tr></thead><tbody>'
+t.entry({'a': 1, 'b': 2})
+# '<tr><td>1</td><td>2</td></tr>\n'
+t.entry({'a': 11, 'b': 22})
+# '<tr><td>11</td><td>22</td></tr>\n'
+t.footer()
+# '</tbody></table>'
+```
+
+* Pass an iterable to iterator_over()
+	
+```python
+from notalib.hypertext import TablePrinter
+t = TablePrinter(['a', 'b'])
+list(t.iterator_over([ {'a': 11, 'b': 22} ]))
+# ['<table><thead><tr><th>a</th><th>b</th></tr></thead><tbody>',
+#  '<tr><td>11</td><td>22</td></tr>\n',
+#  '</tbody></table>']
+```
+
 #### notalib.polosa.polosa :fire: :fire: :fire: :fire: :fire:
 
 ```
