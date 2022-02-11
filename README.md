@@ -20,6 +20,13 @@ While I try to fix bugs, add new features, and review any PRs when I have time, 
 
 If that's not enough for you or you have an urgent request, there are paid maintenance options (bugfixing, features, expedite PR review, 24h security responses). Contact me for prices: m1kc@yandex.ru
 
+Also feel free to just send me money:
+
+* MasterCard: 5559 4925 7484 0297
+* PayPal: [paypal.me/thisism1kc](https://paypal.me/thisism1kc)
+
+Donations are always appreciated, even if you send 10$.
+
 ## Utils included
 
 #### notalib.array.as_chunks :fire:
