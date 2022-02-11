@@ -21,6 +21,9 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Set up Poetry
+      run: |
+        pip install --user poetry
     - name: Install Dependencies
       run: |
         script/bootstrap
