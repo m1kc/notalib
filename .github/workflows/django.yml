@@ -24,9 +24,15 @@ jobs:
     - name: Set up Poetry
       run: |
         pip install --user poetry
+    - name: Set up Coveralls
+      run: |
+        pip install coveralls pyyaml
     - name: Install Dependencies
       run: |
         script/bootstrap
     - name: Run Tests
       run: |
         script/cibuild
+    - name: Upload coverage report
+      run: |
+        coveralls
