@@ -148,6 +148,23 @@ with timing:
 
 #### notalib.django.auth.StaticBackend
 #### notalib.django.auth.SettingsBackend
+
+#### notalib.django.xauth.StaticBackend
+
+Endpoints for easier authentication in APIs. Requires Django REST framework.
+
+Provides endpoints:
+
+* `/xauth/check` — returns code 200 if client is authenticated (or global permissions are set to AllowAny), 403 if not
+* `/xauth/auth-post` — authenticates a client; accepts two POST parameters `username` and `password`; returns code 200 on success and 403 on failure
+
+How to use:
+
+1. Make sure Django REST framework is installed.
+2. Add `'notalib.django_xauth'` to INSTALLED_APPS.
+3. Run `manage.py migrate django_xauth` (doesn't actually change your DB).
+4. Add something like this to your urls.py: `path('xauth/', include('notalib.django_xauth.urls')),`
+
 #### notalib.django.colorlog.ColorFormatter
 #### notalib.django.filterset :fire:
 #### notalib.django.formplus.MonthField
