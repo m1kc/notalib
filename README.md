@@ -14,6 +14,12 @@ Or with [poetry](https://python-poetry.org/):
 poetry add notalib
 ```
 
+## Maintenance & bugfixes
+
+While I try to fix bugs, add new features, and review any PRs when I have time, there're no promises and no set timeframes, even if a bug is critical. That's a project I do in my free time, free of charge.
+
+If that's not enough for you or you have an urgent request, there are paid maintenance options (bugfixing, features, expedite PR review, 24h security responses). Contact me for prices: m1kc@yandex.ru
+
 ## Utils included
 
 #### notalib.array.as_chunks :fire:
