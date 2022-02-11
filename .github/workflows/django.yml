@@ -38,4 +38,4 @@ jobs:
         script/cibuild
     - name: Upload coverage report
       run: |
-        coveralls
+        coveralls --service=github
