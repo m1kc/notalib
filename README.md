@@ -162,7 +162,7 @@ with timing:
 #### notalib.django.auth.StaticBackend
 #### notalib.django.auth.SettingsBackend
 
-#### notalib.django.xauth.StaticBackend
+#### notalib.django.xauth
 
 Endpoints for easier authentication in APIs. Requires Django REST framework.
 
