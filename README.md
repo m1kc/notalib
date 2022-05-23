@@ -66,9 +66,11 @@ my_function('dog')
 #### notalib.date.parse_month
 #### notalib.date.parse_date
 #### notalib.date.normalize_date :fire:
+#### notalib.date.get_week_number
 #### notalib.dict.find_field
 #### notalib.dict.find_value
 #### notalib.dict.normalize_dict :fire:
+#### notalib.dict.filter_dict
 #### notalib.format.format_long_list
 #### notalib.hypertext.strip_tags :fire:
 #### notalib.hypertext.TablePrinter :fire:
@@ -186,3 +188,4 @@ How to use:
 #### notalib.django.formplus.StringArrayField
 #### notalib.django.formplus.MonthArrayField
 #### notalib.django.request_time_middleware.RequestTimeLoggingMiddleware
+#### notalib.django.stream_json
