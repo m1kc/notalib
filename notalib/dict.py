@@ -1,3 +1,6 @@
+from typing import Sequence, Hashable
+
+
 def find_field(d, candidates):
 	"""
 	Given a dict and a list of possible keys, find the first key
@@ -41,3 +44,22 @@ def normalize_dict(source, replacements, allow_original_key=True):
 		ret[key] = value
 	return ret
 
+
+def filter_dict(src: dict, keys_to_filter: Sequence[Hashable]) -> dict:
+	"""
+	Filters dictionary by keys_to_filter set.
+
+	Parameters
+	----------
+	src: dict
+		Source dictionary.
+	keys_to_filter: Sequence[Hashable]
+		Set of keys that should be in the final dictionary.
+
+	Returns
+	-------
+	dict
+		Filtered source dictionary.
+	"""
+
+	return {key: value for key, value in src.items() if key in keys_to_filter}

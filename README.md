@@ -66,9 +66,34 @@ my_function('dog')
 #### notalib.date.parse_month
 #### notalib.date.parse_date
 #### notalib.date.normalize_date :fire:
+#### notalib.date.get_week_number
+Returns the number of the week by date
+```python
+get_week_number(arrow.get('2021-12-31'))
+# 53
+get_week_number(arrow.get('2022-01-01'))
+# 1
+get_week_number(arrow.get('2022-01-06'))
+# 2
+```
 #### notalib.dict.find_field
 #### notalib.dict.find_value
 #### notalib.dict.normalize_dict :fire:
+#### notalib.dict.filter_dict
+Filters dictionary by keys_to_filter set.
+```python
+src = {
+	'Some...': "BODY",
+	'once': "told me",
+	'the world': "is gonna roll me",
+}
+res = filtered_dict(src, ("Some...", "once"))
+res
+# {'Some...': 'BODY', 'once': 'told me'}
+res = filtered_dict(src, [])
+res
+# {}
+```
 #### notalib.format.format_long_list
 #### notalib.hypertext.strip_tags :fire:
 #### notalib.hypertext.TablePrinter :fire:
@@ -186,3 +211,13 @@ How to use:
 #### notalib.django.formplus.StringArrayField
 #### notalib.django.formplus.MonthArrayField
 #### notalib.django.request_time_middleware.RequestTimeLoggingMiddleware
+#### notalib.django.stream.stream_json
+Stream all elements of iterable object as JSON array using the StreamingHttpResponse class.
+```python
+class SomeViewSet(...):
+    ...
+    
+    def list(self, request, *args, **kwargs):
+        ...
+        return stream_json(data)
+```
