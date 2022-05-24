@@ -6,7 +6,7 @@ from django.http import StreamingHttpResponse
 
 def stream_json(data: Iterable[Dict[Hashable, any]]) -> StreamingHttpResponse:
 	"""
-	Stream all elements in `data` as JSON array using the  StreamingHttpResponse class.
+	Stream all elements in `data` as JSON array using the StreamingHttpResponse class.
 
 	Parameters
 	----------
