@@ -14,6 +14,19 @@ Or with [poetry](https://python-poetry.org/):
 poetry add notalib
 ```
 
+## Maintenance & bugfixes
+
+While I try to fix bugs, add new features, and review any PRs when I have time, there're no promises and no set timeframes, even if a bug is critical. That's a project I do in my free time, free of charge.
+
+If that's not enough for you or you have an urgent request, there are paid maintenance options (bugfixing, features, expedite PR review, 24h security responses). Contact me for prices: m1kc@yandex.ru
+
+Also feel free to just send me money:
+
+* MasterCard: 5559 4925 7484 0297
+* PayPal: [paypal.me/thisism1kc](https://paypal.me/thisism1kc)
+
+Donations are always appreciated, even if you send 10$.
+
 ## Utils included
 
 #### notalib.array.as_chunks :fire:
@@ -53,9 +66,34 @@ my_function('dog')
 #### notalib.date.parse_month
 #### notalib.date.parse_date
 #### notalib.date.normalize_date :fire:
+#### notalib.date.get_week_number
+Returns the number of the week by date
+```python
+get_week_number(arrow.get('2021-12-31'))
+# 53
+get_week_number(arrow.get('2022-01-01'))
+# 1
+get_week_number(arrow.get('2022-01-06'))
+# 2
+```
 #### notalib.dict.find_field
 #### notalib.dict.find_value
 #### notalib.dict.normalize_dict :fire:
+#### notalib.dict.filter_dict
+Filters dictionary by keys_to_filter set.
+```python
+src = {
+	'Some...': "BODY",
+	'once': "told me",
+	'the world': "is gonna roll me",
+}
+res = filtered_dict(src, ("Some...", "once"))
+res
+# {'Some...': 'BODY', 'once': 'told me'}
+res = filtered_dict(src, [])
+res
+# {}
+```
 #### notalib.format.format_long_list
 #### notalib.hypertext.strip_tags :fire:
 #### notalib.hypertext.TablePrinter :fire:
@@ -149,7 +187,7 @@ with timing:
 #### notalib.django.auth.StaticBackend
 #### notalib.django.auth.SettingsBackend
 
-#### notalib.django.xauth.StaticBackend
+#### notalib.django.xauth
 
 Endpoints for easier authentication in APIs. Requires Django REST framework.
 
@@ -173,3 +211,13 @@ How to use:
 #### notalib.django.formplus.StringArrayField
 #### notalib.django.formplus.MonthArrayField
 #### notalib.django.request_time_middleware.RequestTimeLoggingMiddleware
+#### notalib.django.stream.stream_json
+Stream all elements of iterable object as JSON array using the StreamingHttpResponse class.
+```python
+class SomeViewSet(...):
+    ...
+    
+    def list(self, request, *args, **kwargs):
+        ...
+        return stream_json(data)
+```
