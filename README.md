@@ -27,6 +27,12 @@ Also feel free to just send me money:
 
 Donations are always appreciated, even if you send 10$.
 
+## Constants included
+#### notalib.utf.BOM (Byte order mark)
+If you have not encountered an encoding error, you are either a very lucky person or not a programmer.
+For everyone else, a constant has been added that will allow you to store it into a file and store data without fear that
+unicode encoding will fly off.
+
 ## Utils included
 
 #### notalib.array.as_chunks :fire:
@@ -181,6 +187,19 @@ with timing:
 ## Pandas-related
 
 #### notalib.pandas.pandasplus.row_to_dict
+#### notalib.pandas.pandasplus.replace_null_objects
+Replaces all types of null values with the type of your dreams (even None).
+
+```python
+df = pd.DataFrame({'A': [pd.NA, pd.NaT, 'SomeVal', None]})
+new_df = replace_null_objects(df, "Hello, notalib!")
+new_df
+#                  A
+# 0  Hello, notalib!
+# 1  Hello, notalib!
+# 2          SomeVal
+# 3  Hello, notalib!
+```
 
 ## Django-related
 
@@ -220,4 +239,45 @@ class SomeViewSet(...):
     def list(self, request, *args, **kwargs):
         ...
         return stream_json(data)
+```
+
+### Related sqlalchemy and plugins for clickhouse
+Required two django.settings variables:
+
+* **CLICKHOUSE_URL** - url for connecting to the DBMS
+* **CLICKHOUSE_PROFILE** - boolean variable to profile query execution
+#### notalib.django.clickhouse.base.get_connection
+#### notalib.django.clickhouse.base.get_database_name
+#### notalib.django.clickhouse.base.Query :fire:
+Allows you to make query and get formatted responses right away!
+
+It's very simple, just choose the right method for the right data type:
+
+* execute (without any postprocessing)
+* execute_val
+* execute_list
+* execute_kv
+* execute_na
+
+Usage example:
+```python
+q = Query(select([SomeTable.c.notalib]))
+q.execute_list()
+# ["OOOOO", "my", "defence", ...]
+```
+#### notalib.django.clickhouse.mutations.get_mutations_in_progress_count
+Returns the number of mutations started for the specified table in the specified database.
+```python
+mutants_count = get_mutations_in_progress_count("SOME_DATABASE", "SOME_TABLE_IN_DATABASE")
+mutants_count
+# 5
+```
+
+#### notalib.django.clickhouse.wait.wait_result :fire:
+Suspends the program until an asynchronous operation is performed for the specified table in the specified database.
+```python
+... # do important things before the update operation
+# calling_update_function
+wait_result("SOME_DATABASE", "SOME_TABLE_IN_DATABASE", 0.5)
+... # do important things after the update operation
 ```
