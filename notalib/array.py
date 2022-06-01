@@ -1,10 +1,10 @@
-def as_chunks(l, n):
+def as_chunks(arr, n):
 	"""
-	Yield successive n-sized chunks from l.
+	Yield successive n-sized chunks from arr.
 	"""
 	assert n >= 1
-	for i in range(0, len(l), n):
-		yield l[i:i + n]
+	for i in range(0, len(arr), n):
+		yield arr[i:i + n]
 
 
 def ensure_iterable(x):

@@ -27,6 +27,10 @@ Also feel free to just send me money:
 
 Donations are always appreciated, even if you send 10$.
 
+## Constants included
+
+* `notalib.utf.BOM`: contains string `b'\xEF\xBB\xBF'` (UTF-8 little endian byte order mark).
+
 ## Utils included
 
 #### notalib.array.as_chunks :fire:
@@ -67,7 +71,9 @@ my_function('dog')
 #### notalib.date.parse_date
 #### notalib.date.normalize_date :fire:
 #### notalib.date.get_week_number
-Returns the number of the week by date
+
+Returns week number for the given Arrow date.
+
 ```python
 get_week_number(arrow.get('2021-12-31'))
 # 53
@@ -76,24 +82,26 @@ get_week_number(arrow.get('2022-01-01'))
 get_week_number(arrow.get('2022-01-06'))
 # 2
 ```
+
 #### notalib.dict.find_field
 #### notalib.dict.find_value
 #### notalib.dict.normalize_dict :fire:
 #### notalib.dict.filter_dict
-Filters dictionary by keys_to_filter set.
+
+Filters a dictionary, removing any keys except for the ones you choose.
+
 ```python
 src = {
-	'Some...': "BODY",
+	'Some': "BODY",
 	'once': "told me",
 	'the world': "is gonna roll me",
 }
-res = filtered_dict(src, ("Some...", "once"))
-res
-# {'Some...': 'BODY', 'once': 'told me'}
-res = filtered_dict(src, [])
-res
+filtered_dict(src, ["Some", "once"])
+# {'Some': 'BODY', 'once': 'told me'}
+filtered_dict(src, [])
 # {}
 ```
+
 #### notalib.format.format_long_list
 #### notalib.hypertext.strip_tags :fire:
 #### notalib.hypertext.TablePrinter :fire:
@@ -181,6 +189,20 @@ with timing:
 ## Pandas-related
 
 #### notalib.pandas.pandasplus.row_to_dict
+#### notalib.pandas.pandasplus.replace_null_objects
+
+Replaces all types of null values in a DataFrame with the given value.
+
+```python
+df = pd.DataFrame({'A': [pd.NA, pd.NaT, 'SomeVal', None]})
+new_df = replace_null_objects(df, "Hello, notalib!")
+new_df
+#                  A
+# 0  Hello, notalib!
+# 1  Hello, notalib!
+# 2          SomeVal
+# 3  Hello, notalib!
+```
 
 ## Django-related
 
@@ -212,7 +234,9 @@ How to use:
 #### notalib.django.formplus.MonthArrayField
 #### notalib.django.request_time_middleware.RequestTimeLoggingMiddleware
 #### notalib.django.stream.stream_json
-Stream all elements of iterable object as JSON array using the StreamingHttpResponse class.
+
+Stream all elements of iterable object as JSON array using the StreamingHttpResponse class. Unlike DRF's Response class, it can handle arrays of any size.
+
 ```python
 class SomeViewSet(...):
     ...
@@ -220,4 +244,56 @@ class SomeViewSet(...):
     def list(self, request, *args, **kwargs):
         ...
         return stream_json(data)
+```
+
+## Django/Clickhouse
+
+_Stage: alpha_
+
+Required packages: `clickhouse-sqlalchemy`
+
+Required two django.settings variables:
+
+* **CLICKHOUSE_URL** — database URL
+* **CLICKHOUSE_PROFILE** — dump all queries and their timing to console, true/false
+
+#### notalib.django.clickhouse.base.get_connection
+#### notalib.django.clickhouse.base.get_database_name
+#### notalib.django.clickhouse.base.Query
+
+A wrapper for SQLAlchemy's `select` with some useful postprocessing options.
+
+* `execute` — no postprocessing
+* `execute_val` — returns single value
+* `execute_list` — returns single column as list
+* `execute_kv` — returns dict, first column becomes keys, second column becomes values
+* `execute_na` — returns number of affected rows
+
+Usage example:
+
+```python
+q = Query(
+    select([ SomeTable.c.notalib ])
+)
+q.execute_list()
+# ["Example", "OOOOO", "my", "defence", ...]
+```
+
+#### notalib.django.clickhouse.mutations.get_mutations_in_progress_count
+
+Returns the number of mutations in progress for the specified table.
+
+```python
+get_mutations_in_progress_count("SOME_DATABASE", "SOME_TABLE_IN_DATABASE")
+# 5
+```
+
+#### notalib.django.clickhouse.wait.wait_result :fire:
+
+Waits until all mutations for the given table are complete.
+
+```python
+# blah blah blah, ALTER TABLE ... UPDATE ...
+wait_result("SOME_DATABASE", "SOME_TABLE_IN_DATABASE")
+# UPDATE complete, continue
 ```

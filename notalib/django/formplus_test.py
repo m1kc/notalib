@@ -5,7 +5,7 @@ from collections import namedtuple
 from django.core.exceptions import ValidationError
 import pytest
 from hypothesis import given
-from hypothesis.strategies import lists, integers, dates
+from hypothesis.strategies import lists, dates
 
 
 def test_MonthArrayField():

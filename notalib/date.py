@@ -14,7 +14,7 @@ def parse_date(s, format_or_formats):
 		try:
 			d = arrow.get(s, f)
 			break
-		except:
+		except:  # should probably narrow to arrow.ParserError
 			pass
 	if d == None:
 		raise ValueError(f"Could not parse date `{s}` with any of the specified formats")
