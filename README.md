@@ -250,6 +250,8 @@ class SomeViewSet(...):
 
 _Stage: alpha_
 
+Required packages: `clickhouse-sqlalchemy`
+
 Required two django.settings variables:
 
 * **CLICKHOUSE_URL** — database URL
