@@ -1,4 +1,4 @@
-from pandas import DataFrame, NaT, notnull
+from pandas import DataFrame, notnull
 
 
 def row_to_dict(d, key_as=None):
@@ -32,7 +32,6 @@ def replace_null_objects(dataframe: DataFrame, new_value=None) -> DataFrame:
 	it to None, I recommend using this function.
 	"""
 
-	dataframe = dataframe.replace({NaT: new_value})
 	dataframe = dataframe.where(notnull(dataframe), new_value)
 
 	return dataframe
