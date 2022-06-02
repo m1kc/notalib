@@ -34,13 +34,8 @@ def get_mutations_in_progress_count(db_name: str, table_name: str) -> int:
 	query = Query()
 	query.q = text("""SELECT count(*)
 FROM system.mutations
-WHERE database == :db_name AND table == :table_name AND is_done == 0 GROUP BY is_done""")
+WHERE database == :db_name AND table == :table_name AND is_done == 0""")
 
 	query.params = {'db_name': db_name, 'table_name': table_name}
 
-	result = query.execute()
-
-	if result:
-		return result[0][0] - 1
-
-	return 0
+	return query.execute_val()
