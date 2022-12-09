@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "notalib"
-version = "1.3.2"
+version = "1.3.3"
 description = "A collection of utility functions & classes"
 authors = ["m1kc (Max Musatov) <m1kc@yandex.ru>"]
 license = "MIT"
@@ -30,3 +30,9 @@ pandas = "^1.1.5"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
