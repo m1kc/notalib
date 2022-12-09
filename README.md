@@ -91,14 +91,16 @@ get_week_number(arrow.get('2022-01-06'))
 Filters a dictionary, removing any keys except for the ones you choose.
 
 ```python
+from notalib.dict import filter_dict
+
 src = {
 	'Some': "BODY",
 	'once': "told me",
 	'the world': "is gonna roll me",
 }
-filtered_dict(src, ["Some", "once"])
+filter_dict(src, ["Some", "once"])
 # {'Some': 'BODY', 'once': 'told me'}
-filtered_dict(src, [])
+filter_dict(src, [])
 # {}
 ```
 
