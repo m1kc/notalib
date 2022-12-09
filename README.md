@@ -70,7 +70,7 @@ my_function('dog')
 #### notalib.date.parse_month
 #### notalib.date.parse_date
 #### notalib.date.normalize_date :fire:
-#### notalib.date.get_week_number
+#### notalib.date.get_week_number ❌ (deprecated)
 
 Returns week number for the given Arrow date.
 
@@ -81,6 +81,28 @@ get_week_number(arrow.get('2022-01-01'))
 # 1
 get_week_number(arrow.get('2022-01-06'))
 # 2
+```
+
+#### notalib.date.extract_year_week_number
+
+Returns named tuple with week number and year.
+
+```python
+from notalib.date import extract_year_week_number, YearWeekNumberExtractionMode
+from datetime import date
+
+date1, date2 = date(2022, 12, 31), date(2023, 1, 1)
+extract_year_week_number(date1, YearWeekNumberExtractionMode.MODE_NORMAL)
+# YearWeekNumber(week=52, year=2022)
+
+extract_year_week_number(date1, YearWeekNumberExtractionMode.MODE_MATCH_YEAR)
+# YearWeekNumber(week=52, year=2022)
+
+extract_year_week_number(date2, YearWeekNumberExtractionMode.MODE_NORMAL)
+# YearWeekNumber(week=0, year=2023)
+
+extract_year_week_number(date2, YearWeekNumberExtractionMode.MODE_MATCH_YEAR)
+# YearWeekNumber(week=52, year=2022)
 ```
 
 #### notalib.dict.find_field
