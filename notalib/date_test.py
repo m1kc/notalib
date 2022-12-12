@@ -1,4 +1,4 @@
-from .date import get_week_number, Week, extract_week, WeekExtractionMode
+from .date import get_week_number, Week, get_week, WeekExtractionMode
 
 import pytest
 from arrow import get as arrow_get
@@ -62,5 +62,5 @@ def test_get_week_number(date, expected_week_number):
 	"date, mode, expected_week_number",
 	EXTRACT_YEAR_WEEK_NUMBER_TEST_DATA,
 )
-def test_extract_year_week_number(date, mode, expected_week_number):
-	assert extract_week(date, mode) == expected_week_number
+def test_get_week(date, mode, expected_week_number):
+	assert get_week(date, mode) == expected_week_number

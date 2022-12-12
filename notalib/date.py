@@ -100,7 +100,7 @@ class WeekExtractorMatchYearMode(WeekExtractor):
 		return week
 
 
-def extract_week(
+def get_week(
 	date_object: DateLikeObject,
 	mode: WeekExtractionMode = WeekExtractionMode.MODE_NORMAL,
 ) -> Week:
@@ -125,7 +125,7 @@ def extract_week(
 @deprecated(
 	reason=(
 		f"Starting from version ^1.4.0, the function {__name__}.get_week_number is deprecated. "
-		f"Use {__name__}.{extract_week.__name__} instead of this function."
+		f"Use {__name__}.{get_week.__name__} instead of this function."
 	)
 )
 def get_week_number(date: arrow.Arrow) -> int:
