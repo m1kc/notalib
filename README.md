@@ -72,7 +72,7 @@ my_function('dog')
 #### notalib.date.normalize_date :fire:
 #### <s>notalib.date.get_week_number</s>
 
-_Deprecated since 1.4.0, will be removed in 2.0.0. Use get_week instead. If you want the "old" week numbering, use get_week with MODE_MATCH_YEAR._
+_Deprecated since 1.4.0, will be removed in 2.0.0. Use get_week instead. If you want the "old" week numbering, use get_week with MODE_NORMAL and add 1 to week number._
 
 <details><summary>Click to see description</summary>
 
