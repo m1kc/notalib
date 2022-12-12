@@ -70,7 +70,11 @@ my_function('dog')
 #### notalib.date.parse_month
 #### notalib.date.parse_date
 #### notalib.date.normalize_date :fire:
-#### notalib.date.get_week_number ❌ (deprecated)
+#### <s>notalib.date.get_week_number</s>
+
+_Deprecated since 1.4.0, will be removed in 2.0.0. Use get_week instead. If you want the "old" week numbering, use get_week with MODE_MATCH_YEAR._
+
+<details><summary>Click to see description</summary>
 
 Returns week number for the given Arrow date.
 
@@ -83,9 +87,16 @@ get_week_number(arrow.get('2022-01-06'))
 # 2
 ```
 
+</details>
+
 #### notalib.date.get_week
 
-Returns named tuple with week number and year.
+Returns named tuple with week number for the given date. Accepts Python dates and Arrow timestamps.
+
+Optional argument `mode` tells what to do if the week started in previous year:
+
+* WeekExtractionMode.MODE_NORMAL (default): consider it the last week of the previous year
+* WeekExtractionMode.MODE_MATCH_YEAR: consider it 0-th week of current year
 
 ```python
 from notalib.date import get_week, WeekExtractionMode
