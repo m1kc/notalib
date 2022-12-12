@@ -83,7 +83,7 @@ get_week_number(arrow.get('2022-01-06'))
 # 2
 ```
 
-#### notalib.date.extract_year_week_number
+#### notalib.date.get_week
 
 Returns named tuple with week number and year.
 
