@@ -1,12 +1,11 @@
-from .timedelta import convert_timedelta, TimedeltaFormat
+from .timedelta import convert_timedelta
 
 from datetime import timedelta
-from typing_extensions import get_args
 
 import pytest
 
 
-TIMEDELTA_FORMATS = get_args(TimedeltaFormat)
+TIMEDELTA_FORMATS = ['s', 'ms']
 
 
 @pytest.mark.parametrize(

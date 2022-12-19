@@ -1,17 +1,16 @@
 from datetime import timedelta
 from typing import Union
-from typing_extensions import Literal
 
 
-TimedeltaFormat = Literal['s', 'ms']
-
-
-def convert_timedelta(src: timedelta, fmt: TimedeltaFormat) -> Union[float, int]:
+def convert_timedelta(src: timedelta, fmt: str) -> Union[float, int]:
 	"""
 	Converts standard timedelta object to specified format.
 
 	Args:
 		src: Source timedelta which will be converted.
+			Allowed formats:
+				's' - convert to seconds;
+				'ms' - convert to milliseconds.
 		fmt: The desired format to convert the timedelta.
 
 	Raises:
