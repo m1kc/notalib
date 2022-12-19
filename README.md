@@ -1,6 +1,8 @@
 # notalib [![Django CI](https://github.com/m1kc/notalib/actions/workflows/django.yml/badge.svg)](https://github.com/m1kc/notalib/actions/workflows/django.yml) [![Coverage Status](https://coveralls.io/repos/github/m1kc/notalib/badge.svg?branch=master)](https://coveralls.io/github/m1kc/notalib?branch=master)
 
-Collection of small Python utility functions and classes. Some are written by me, some are taken from StackOverflow and customized (I tried to provide links to original sources where possible). This repo never aimed to be a library of any sort (but now it is).
+Collection of small Python utility functions and classes. Each one was created because I needed it and it didn't exist or I didn't like the existing implementations. 100% of code is used in real-world projects.
+
+(And one day, the documentation is going to be actually good. In the meanwhile, don't hesitate to ask if something's not clear.)
 
 ## Install
 
@@ -70,30 +72,34 @@ my_function('dog')
 #### notalib.date.parse_month
 #### notalib.date.parse_date
 #### notalib.date.normalize_date :fire:
+#### <s>notalib.date.get_week_number</s>
+
+_Removed in 2.0.0. Use `get_week` instead. If you want the "old" week numbering, use get_week with `WeekNumbering.MATCH_YEAR` and add 1 to week number._
+
 #### notalib.date.get_week
 
 Returns named tuple with week number for the given date. Accepts Python dates and Arrow timestamps.
 
 Optional argument `mode` tells what to do if the week started in previous year:
 
-* WeekExtractionMode.MODE_NORMAL (default): consider it the last week of the previous year
-* WeekExtractionMode.MODE_MATCH_YEAR: consider it 0-th week of current year
+* WeekNumbering.NORMAL (default): consider it the last week of the previous year
+* WeekNumbering.MATCH_YEAR: consider it 0-th week of current year
 
 ```python
-from notalib.date import get_week, WeekExtractionMode
+from notalib.date import get_week, WeekNumbering
 from datetime import date
 
 date1, date2 = date(2022, 12, 31), date(2023, 1, 1)
-get_week(date1, WeekExtractionMode.MODE_NORMAL)
+get_week(date1, WeekNumbering.NORMAL)
 # Week(week=52, year=2022)
 
-get_week(date1, WeekExtractionMode.MODE_MATCH_YEAR)
+get_week(date1, WeekNumbering.MATCH_YEAR)
 # Week(week=52, year=2022)
 
-get_week(date2, WeekExtractionMode.MODE_NORMAL)
+get_week(date2, WeekNumbering.NORMAL)
 # Week(week=52, year=2022)
 
-get_week(date2, WeekExtractionMode.MODE_MATCH_YEAR)
+get_week(date2, WeekNumbering.MATCH_YEAR)
 # Week(week=0, year=2023)
 ```
 

@@ -21,7 +21,7 @@ class Week(NamedTuple):
 
 
 @unique
-class WeekExtractionMode(Enum):
+class WeekNumbering(Enum):
 	"""
 	Contains enumeration of available modes of week extraction.
 	"""
@@ -31,14 +31,14 @@ class WeekExtractionMode(Enum):
 	First week number in year is: One
 	First week is a week with: The first of Monday
 	"""
-	MODE_NORMAL = auto()
+	NORMAL = auto()
 
 	"""
 	First day in week is: Monday
 	First week number in year: Zero
 	First week is a week with: The first of January
 	"""
-	MODE_MATCH_YEAR = auto()
+	MATCH_YEAR = auto()
 
 
 def parse_month(yyyy_mm):
@@ -71,7 +71,7 @@ class WeekExtractor(ABC):
 	def extract(cls, date_object: DateLikeObject) -> Week: ...
 
 
-class WeekExtractorMatchYearMode(WeekExtractor):
+class MatchYearWeekExtractor(WeekExtractor):
 	@classmethod
 	def extract(cls, date_object: DateLikeObject) -> Week:
 		"""
@@ -83,7 +83,7 @@ class WeekExtractorMatchYearMode(WeekExtractor):
 		return Week(int(date_object.strftime('%W')), date_object.year)
 
 
-class WeekExtractorNormalMode(WeekExtractor):
+class NormalWeekExtractor(WeekExtractor):
 	@classmethod
 	def extract(cls, date_object: DateLikeObject) -> Week:
 		"""
@@ -91,32 +91,33 @@ class WeekExtractorNormalMode(WeekExtractor):
 		First week of year is week with monday.
 		Range of week numbers: 1..53.
 		"""
-		week = WeekExtractorMatchYearMode.extract(date_object)
+		week = MatchYearWeekExtractor.extract(date_object)
 
 		if week.week == 0:
 			# Means that the week refers to the last week of the previous year
-			week = WeekExtractorMatchYearMode.extract(datetime.date(date_object.year - 1, 12, 31))
+			week = MatchYearWeekExtractor.extract(datetime.date(date_object.year - 1, 12, 31))
 
 		return week
 
 
+@deprecated('notalib: current get_week behavior is considered buggy and will be changed in 2.0.')
 def get_week(
 	date_object: DateLikeObject,
-	mode: WeekExtractionMode = WeekExtractionMode.MODE_NORMAL,
+	mode: WeekNumbering = WeekNumbering.NORMAL,
 ) -> Week:
 	"""
 	Extracts week from specified date.
 
 	Args:
 		date_object: Date like object. It must be compatible with 'datetime.date' object.
-		mode: Mode of extraction week number. Available modes see in WeekExtractionMode.
+		mode: Mode of extraction week number. Available modes see in WeekNumbering.
 	"""
-	if not isinstance(mode, WeekExtractionMode):
-		raise TypeError(f"The mode {mode} does not belong to the {WeekExtractionMode.__name__} enumeration")
+	if not isinstance(mode, WeekNumbering):
+		raise TypeError(f"The mode {mode} does not belong to the {WeekNumbering.__name__} enumeration")
 
-	if mode == WeekExtractionMode.MODE_NORMAL:
-		return WeekExtractorNormalMode.extract(date_object)
-	elif mode == WeekExtractionMode.MODE_MATCH_YEAR:
-		return WeekExtractorMatchYearMode.extract(date_object)
+	if mode == WeekNumbering.NORMAL:
+		return NormalWeekExtractor.extract(date_object)
+	elif mode == WeekNumbering.MATCH_YEAR:
+		return MatchYearWeekExtractor.extract(date_object)
 
 	raise NotImplementedError(f'Extraction week number in mode {mode.name} is not implemented')
