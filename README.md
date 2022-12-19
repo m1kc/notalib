@@ -70,30 +70,34 @@ my_function('dog')
 #### notalib.date.parse_month
 #### notalib.date.parse_date
 #### notalib.date.normalize_date :fire:
+#### <s>notalib.date.get_week_number</s>
+
+_Removed in 2.0.0. Use `get_week` instead. If you want the "old" week numbering, use get_week with `WeekNumbering.MATCH_YEAR` and add 1 to week number._
+
 #### notalib.date.get_week
 
 Returns named tuple with week number for the given date. Accepts Python dates and Arrow timestamps.
 
 Optional argument `mode` tells what to do if the week started in previous year:
 
-* WeekExtractionMode.MODE_NORMAL (default): consider it the last week of the previous year
-* WeekExtractionMode.MODE_MATCH_YEAR: consider it 0-th week of current year
+* WeekNumbering.NORMAL (default): consider it the last week of the previous year
+* WeekNumbering.MATCH_YEAR: consider it 0-th week of current year
 
 ```python
-from notalib.date import get_week, WeekExtractionMode
+from notalib.date import get_week, WeekNumbering
 from datetime import date
 
 date1, date2 = date(2022, 12, 31), date(2023, 1, 1)
-get_week(date1, WeekExtractionMode.MODE_NORMAL)
+get_week(date1, WeekNumbering.NORMAL)
 # Week(week=52, year=2022)
 
-get_week(date1, WeekExtractionMode.MODE_MATCH_YEAR)
+get_week(date1, WeekNumbering.MATCH_YEAR)
 # Week(week=52, year=2022)
 
-get_week(date2, WeekExtractionMode.MODE_NORMAL)
+get_week(date2, WeekNumbering.NORMAL)
 # Week(week=52, year=2022)
 
-get_week(date2, WeekExtractionMode.MODE_MATCH_YEAR)
+get_week(date2, WeekNumbering.MATCH_YEAR)
 # Week(week=0, year=2023)
 ```
 
