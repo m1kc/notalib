@@ -100,6 +100,7 @@ class WeekExtractorNormalMode(WeekExtractor):
 		return week
 
 
+@deprecated('notalib: current get_week behavior is considered buggy and will be changed in 2.0.')
 def get_week(
 	date_object: DateLikeObject,
 	mode: WeekExtractionMode = WeekExtractionMode.MODE_NORMAL,
