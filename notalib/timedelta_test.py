@@ -18,6 +18,9 @@ TIMEDELTA_FORMATS = get_args(TimedeltaFormat)
 		(timedelta(milliseconds=11), 'ms', 11),
 		(timedelta(microseconds=1), 's', 0.000001),
 		(timedelta(microseconds=1), 'ms', 0.001),
+		(timedelta(seconds=1, milliseconds=23), 's', 1.023),
+		(timedelta(seconds=1, milliseconds=23), 'ms', 1023),
+		(timedelta(minutes=-1), 's', -60),
 		(timedelta(days=-1), 'Unexpected format', None),
 	]
 )

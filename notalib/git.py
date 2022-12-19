@@ -17,7 +17,7 @@ class HashableData:
 
 @dataclass(frozen=True)
 class Tag(HashableData):
-	tag: str
+	label: str
 
 
 @dataclass(frozen=True)
@@ -49,7 +49,7 @@ def get_last_tag() -> Optional[Tag]:
 		hash = get_tag_hash(last_tag)
 
 		if hash:
-			return Tag(tag=last_tag, hash=hash)
+			return Tag(label=last_tag, hash=hash)
 
 	return None
 

@@ -119,6 +119,23 @@ filter_dict(src, [])
 ```
 
 #### notalib.format.format_long_list
+#### notalib.timedelta.convert_timedelta
+
+Converts standard timedelta object to specified formats.
+
+Allowed formats: 's', 'ms'.
+
+```python
+from notalib.timedelta import convert_timedelta
+from datetime import timedelta
+
+td = timedelta(seconds=1, milliseconds=23)
+convert_timedelta(td, 's')
+# 1.023
+convert_timedelta(td, 'ms')
+# 1023
+```
+
 #### notalib.hypertext.strip_tags :fire:
 #### notalib.hypertext.TablePrinter :fire:
 
@@ -201,6 +218,28 @@ with timing:
 ```
 
 #### notalib.trendsetter.Trendsetter :fire:
+
+#### notalib.git.get_current_commit
+
+Returns short description and hash of last commit of current branch.
+If function is called outside git repo or there are no commits in the history, `None` will be returned.
+
+```python
+from notalib.git import get_current_commit
+
+commit = get_current_commit()
+# Commit(hash='db0e5c1de83f233abef823fd92490727f4ee9d50', short_description='Add timedelta module with convert_timedelta function')
+```
+#### notalib.git.get_last_tag
+
+Returns last tag label and hash. If function is called outside git repo or there are no tags in the history, `None` will be returned.
+
+```python
+from notalib.git import get_last_tag
+
+tag = get_last_tag()
+# Tag(hash='c4b6e06f57ab4773e2881d286804d4e3141b5195', label='v1.4.0')
+```
 
 ## Pandas-related
 
