@@ -28,15 +28,15 @@ class WeekExtractionMode(Enum):
 
 	"""
 	First day in week is: Monday
-	First week number in year is: Zero
-	First week is a week with: The first of January
+	First week number in year is: One
+	First week is a week with: The first of Monday
 	"""
 	MODE_NORMAL = auto()
 
 	"""
 	First day in week is: Monday
-	First week number in year: One
-	First week is a week with: The first of Monday
+	First week number in year: Zero
+	First week is a week with: The first of January
 	"""
 	MODE_MATCH_YEAR = auto()
 
@@ -71,7 +71,7 @@ class WeekExtractor(ABC):
 	def extract(cls, date_object: DateLikeObject) -> Week: ...
 
 
-class WeekExtractorNormalMode(WeekExtractor):
+class WeekExtractorMatchYearMode(WeekExtractor):
 	@classmethod
 	def extract(cls, date_object: DateLikeObject) -> Week:
 		"""
@@ -83,7 +83,7 @@ class WeekExtractorNormalMode(WeekExtractor):
 		return Week(int(date_object.strftime('%W')), date_object.year)
 
 
-class WeekExtractorMatchYearMode(WeekExtractor):
+class WeekExtractorNormalMode(WeekExtractor):
 	@classmethod
 	def extract(cls, date_object: DateLikeObject) -> Week:
 		"""
@@ -91,11 +91,11 @@ class WeekExtractorMatchYearMode(WeekExtractor):
 		First week of year is week with monday.
 		Range of week numbers: 1..53.
 		"""
-		week = WeekExtractorNormalMode.extract(date_object)
+		week = WeekExtractorMatchYearMode.extract(date_object)
 
 		if week.week == 0:
 			# Means that the week refers to the last week of the previous year
-			week = WeekExtractorNormalMode.extract(datetime.date(date_object.year - 1, 12, 31))
+			week = WeekExtractorMatchYearMode.extract(datetime.date(date_object.year - 1, 12, 31))
 
 		return week
 
@@ -120,21 +120,3 @@ def get_week(
 		return WeekExtractorMatchYearMode.extract(date_object)
 
 	raise NotImplementedError(f'Extraction week number in mode {mode.name} is not implemented')
-
-
-@deprecated(
-	reason=(
-		f"Starting from version ^1.4.0, the function {__name__}.get_week_number is deprecated. "
-		f"Use {__name__}.{get_week.__name__} instead of this function."
-	)
-)
-def get_week_number(date: arrow.Arrow) -> int:
-	"""
-	Returns the number of the week by date
-
-	Notes:
-		strftime method with parameter '%W' returns week number in range 0...53 where is a monday is a first day of week.
-
-	01.01.2022 is a first week of year, but method returns 0. To result in a human-readable format, 1 is added.
-	"""
-	return int(date.strftime('%W')) + 1
