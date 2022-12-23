@@ -103,6 +103,20 @@ get_week(date2, WeekNumbering.MATCH_YEAR)
 # Week(week=0, year=2023)
 ```
 
+#### notalib.dict.deep_merge
+
+_:warning: Experimental API. Subject to change. Don't use in production. You've been warned._
+
+Merges two dicts.
+
+Modifies input. Use `copy.deepcopy` to create a deep copy of the original dictionary if you need it.
+
+Accepts three arguments:
+
+* original dict (also target)
+* second dict
+* overwrite=True if you want to overwrite matching paths, overwrite=False to raise an exception on path conflicts (default)
+
 #### notalib.dict.find_field
 #### notalib.dict.find_value
 #### notalib.dict.normalize_dict :fire:
