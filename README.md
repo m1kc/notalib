@@ -4,6 +4,7 @@ Collection of small Python utility functions and classes. Each one was created b
 
 (And one day, the documentation is going to be actually good. In the meanwhile, don't hesitate to ask if something's not clear.)
 
+
 ## Install
 
 ```sh
@@ -15,6 +16,14 @@ Or with [poetry](https://python-poetry.org/):
 ```sh
 poetry add notalib
 ```
+
+
+## Compatibility promise
+
+Version numbers follow the semver rules. Minor releases are backwards-compatible. It should be safe to update, say, from 1.2 to 1.4.
+
+Major releases are not backwards-compatible. If you upgrade, say, from 1.4 to 2.0, read the release notes to see what's changed.
+
 
 ## Maintenance & bugfixes
 
@@ -28,6 +37,7 @@ Also feel free to just send me money:
 * PayPal: [paypal.me/thisism1kc](https://paypal.me/thisism1kc)
 
 Donations are always appreciated, even if you send 10$.
+
 
 ## Constants included
 
