@@ -127,6 +127,8 @@ filter_dict(src, [])
 #### notalib.format.format_long_list
 #### notalib.timedelta.convert_timedelta
 
+_:warning: Experimental API. Subject to change. Don't use in production. You've been warned._
+
 Converts standard timedelta object to specified formats.
 
 Allowed formats: 's', 'ms'.
@@ -227,6 +229,8 @@ with timing:
 
 #### notalib.git.get_current_commit
 
+_:warning: Experimental API. Subject to change. Don't use in production. You've been warned._
+
 Returns short description and hash of last commit of current branch.
 If function is called outside git repo or there are no commits in the history, `None` will be returned.
 
@@ -237,6 +241,8 @@ commit = get_current_commit()
 # Commit(hash='db0e5c1de83f233abef823fd92490727f4ee9d50', short_description='Add timedelta module with convert_timedelta function')
 ```
 #### notalib.git.get_last_tag
+
+_:warning: Experimental API. Subject to change. Don't use in production. You've been warned._
 
 Returns last tag label and hash. If function is called outside git repo or there are no tags in the history, `None` will be returned.
 
