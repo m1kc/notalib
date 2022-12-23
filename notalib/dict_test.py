@@ -1,6 +1,7 @@
-from .dict import filter_dict
+from .dict import filter_dict, deep_merge
 
 import pytest
+from json import dumps
 
 
 FIRST_SRC_DICT = {
@@ -37,3 +38,35 @@ def test_filter_dict(src, leave_only, expected_keys, expected_values):
 	else:
 		with pytest.raises(AttributeError, match=".* object has no attribute 'items'"):
 			filter_dict(src, leave_only)
+
+
+@pytest.mark.parametrize(
+	"orig, other, overwrite, expected_result",
+	[
+		({'a': 1}, {'b': 2}, False, {'a': 1, 'b': 2}),
+		({'a': 1}, {'a': 1}, False, {'a': 1}),
+		({'a': 1}, {'a': 2}, True, {'a': 2}),
+		({'a': {'a': 5}}, {'a': {'b': 12}}, False, {'a': {'a': 5, 'b': 12}}),
+		({'a': {'a': 5}}, {'a': {'a': 12}}, True, {'a': {'a': 12}}),
+		(
+			{'h': {'e': {'l': {'l': 'o'}}}},
+			{'h': {'e': {'l': {'l': {'o': '!'}}}}},
+			True,
+			{'h': {'e': {'l': {'l': {'o': '!'}}}}},
+		),
+	]
+)
+def test_deep_merge(orig, other, overwrite, expected_result):
+	assert dumps(deep_merge(orig, other, overwrite), sort_keys=True) == dumps(expected_result, sort_keys=True)
+
+
+@pytest.mark.parametrize(
+	"orig, other, conflict_path",
+	[
+		({'a': 1}, {'a': 2}, 'a'),
+		({'a': {'a': 5}}, {'a': {'a': 12}}, 'a.a'),
+	]
+)
+def test_deep_merge_raise_error(orig, other, conflict_path):
+	with pytest.raises(Exception, match=f"Conflict at {conflict_path}"):
+		deep_merge(orig, other)
