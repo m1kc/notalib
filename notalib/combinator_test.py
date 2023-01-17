@@ -10,12 +10,15 @@ def test_result_getting():
 	assert combinator.result == combinator.get_result()
 
 
-def test_assertion():
+@pytest.mark.parametrize(
+	"new_set",
+	[[], ()]
+)
+def test_assertion(new_set):
 	combinator = Combinator()
 
 	with pytest.raises(AssertionError, match="Combinator cannot combine with empty set"):
-		combinator.combine([])
-		combinator.combine(())
+		combinator.combine(new_set)
 
 
 @pytest.mark.parametrize(
