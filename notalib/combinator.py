@@ -1,34 +1,56 @@
+from typing import Sequence
+
+
 class Combinator:
 	"""
 	Combines multiple data sets into a set of their combinations.
-	Say, our datasets are [1,2], [3,4], [5,6].
-	Then, our combinations would be:
-	with 1 dataset:  [[1], [2]]
-	with 2 datasets: [[1,3], [1,4], [2,3], [2,4]]
-	with 3 datasets: [[1,3,5], [1,3,6], [1,4,5], [1,4,6], [2,3,5], [2,3,6], [2,4,5], [2,4,6]]
+
+	Examples:
+		>>> combinator = Combinator()
+		>>> combinator.combine([1, 2])
+		>>> combinator.result
+		[[1], [2]]
+		>>> combinator.combine([3, 4])
+		>>> combinator.result
+		[[1, 3], [1, 4], [2, 3], [2, 4]]
+		>>> combinator.combine([5, 6])
+		>>> combinator.result
+		[[1, 3, 5], [1, 3, 6], [1, 4, 5], [1, 4, 6], [2, 3, 5], [2, 3, 6], [2, 4, 5], [2, 4, 6]]
 	"""
-	result = []
+	_result = []
 
 	def __init__(self):
-		self.result = []
+		self._result = []
 
-	def combine(self, new_set):
-		#print("Current result", self.result)
-		#print("Combining set", new_set)
+	def combine(self, new_set: Sequence) -> None:
+		"""
+		Adds new set to combination result.
 
-		if len(new_set) == 0:
-			raise Exception("Combinator cannot combine with empty set")
+		Args:
+			new_set: Values to be added to the combination.
 
-		if len(self.result) == 0:
+		Returns: None
+
+		Raises:
+			AssertionError: When new set has an empty length.
+		"""
+		assert len(new_set) > 0, "Combinator cannot combine with empty set"
+
+		if len(self._result) == 0:
 			for i in new_set:
-				self.result += [[i]]
+				self._result += [[i]]
 		else:
-			newresult = []
-			for tuple in self.result:
-				for i in new_set:
-					newresult += [tuple + [i]]
-			self.result = newresult
-		#print("New result", self.result)
+			new_result = []
 
-	def get_result(self):
+			for i in self._result:
+				for k in new_set:
+					new_result += [i + [k]]
+
+			self._result = new_result
+
+	@property
+	def result(self) -> list:
+		return self._result
+
+	def get_result(self) -> list:
 		return self.result
