@@ -1,30 +1,74 @@
-from .dict import filter_dict, deep_merge
+from .dict import filter_dict, deep_merge, find_field, find_value, normalize_dict
 
 import pytest
 from json import dumps
 
 
-FIRST_SRC_DICT = {
+FILTER_DICT_TEST_DATA1 = {
 	'Some...': "BODY",
 	'once': "told me",
 	'the world': "is gonna roll me",
 }
-SECOND_SRC_DICT = {
+FILTER_DICT_TEST_DATA2 = {
 	("Some", "body"): ["once", "told me"],
 	("The world", "is gonna"): ["roll", "me"],
 	("I ain't the", "sharpest tool"): ["in the shed"],
 }
+NORMALIZE_DICT_REPLACEMENTS = {
+	'artist': ['Artist', 'ARTIST'],
+	'year': ['Year', 'yr', 'yub'],
+}
+
+
+@pytest.mark.parametrize(
+	"dict_, candidates, expected_result",
+	[
+		({'a': 1, 'b': 2}, ['c', 'd', 'e', 'b', 'f'], 'b'),
+		({4: 1}, [1, 2, 3, 4, 'a'], 4),
+		({(1, 2): 1, (3, 4): 2}, [1, 2, (3, 4), 1, 2], (3, 4)),
+	]
+)
+def test_find_field(dict_, candidates, expected_result):
+	assert find_field(dict_, candidates) == expected_result
+
+
+def test_find_field_error():
+	with pytest.raises(ValueError):
+		find_field({}, [])
+
+
+@pytest.mark.parametrize(
+	"dict_, candidates, expected_result",
+	[
+		({'a': 1, 'b': 2}, ['c', 'd', 'e', 'b', 'f'], 2),
+		({4: 1}, [1, 2, 3, 4, 'a'], 1),
+		({(1, 2): 1, (3, 4): 2}, [1, 2, (3, 4), 1, 2], 2),
+	]
+)
+def test_find_value(dict_, candidates, expected_result):
+	assert find_value(dict_, candidates) == expected_result
+
+
+@pytest.mark.parametrize(
+	"source, replacements, allow_original_key, expected_result",
+	[
+		({'Artist': 20, 'yr': 23}, NORMALIZE_DICT_REPLACEMENTS, False, {'artist': 20, 'year': 23}),
+		({'artist': 15, 'year': 11}, NORMALIZE_DICT_REPLACEMENTS, True, {'artist': 15, 'year': 11}),
+	]
+)
+def test_normalize_dict(source, replacements, allow_original_key, expected_result):
+	assert normalize_dict(source, replacements, allow_original_key) == expected_result
 
 
 @pytest.mark.parametrize(
 	"src, leave_only, expected_keys, expected_values",
 	[
-		(FIRST_SRC_DICT, ["Some...", "once"], ("Some...", "once"), ("BODY", "told me")),
-		(FIRST_SRC_DICT, (), (), ()),
-		(SECOND_SRC_DICT, [("Some", "body")], (("Some", "body"), ), (["once", "told me"], )),
-		(SECOND_SRC_DICT, (), (), ()),
+		(FILTER_DICT_TEST_DATA1, ["Some...", "once"], ("Some...", "once"), ("BODY", "told me")),
+		(FILTER_DICT_TEST_DATA1, (), (), ()),
+		(FILTER_DICT_TEST_DATA2, [("Some", "body")], (("Some", "body"),), (["once", "told me"],)),
+		(FILTER_DICT_TEST_DATA2, (), (), ()),
 		({}, ("SOME", "BODY"), (), ()),
-		(SECOND_SRC_DICT, ("Some...", ), (), ()),
+		(FILTER_DICT_TEST_DATA2, ("Some...",), (), ()),
 		([], ("SOME", "BODY"), None, None)
 	]
 )

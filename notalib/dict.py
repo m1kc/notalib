@@ -1,53 +1,89 @@
-from typing import Sequence, Hashable, Optional
+from typing import Sequence, Hashable, Optional, Iterable, Any, Dict, TypeVar
 
 
-def find_field(d, candidates):
+DictKey = TypeVar('DictKey', bound=Hashable)
+
+
+def find_field(d: dict, candidates: Iterable[Hashable]) -> Hashable:
 	"""
-	Given a dict and a list of possible keys, find the first key
-	which is included into this dict. Throws ValueError if not found.
+	Finds the first available key in the specified dictionary.
+
+	Args:
+		d: Dictionary in which to search for keys.
+		candidates: Possible keys.
+
+	Raises:
+		ValueError: If key not found.
 	"""
 	for c in candidates:
 		if c in d:
 			return c
+
 	raise ValueError(f"Can't find any of: {candidates}")
 
 
-def find_value(d, candidates):
+def find_value(d: dict, candidates: Iterable[Hashable]) -> Any:
 	"""
-	Given a dict and a list of possible keys, find the first key
-	which is included into this dict and return its value.
-	Throws ValueError if not found.
+	Finds the first available key in the specified dictionary and returns value by it.
+
+	Args:
+		d: Dictionary in which to search for keys.
+		candidates: Possible keys.
 	"""
-	fieldname = find_field(d, candidates)
-	return d[fieldname]
+	field_name = find_field(d, candidates)
+	return d[field_name]
 
 
-def normalize_dict(source, replacements, allow_original_key=True):
+def normalize_dict(
+	source: Dict[DictKey, Any],
+	replacements: Dict[DictKey, Sequence[DictKey]],
+	allow_original_key=True,
+) -> dict:
 	"""
-	Given a dict and a map: reference key -> [] possible replacements,
-	return a new dict where all keys are guaranteed to be reference keys
-	with values taken from any of replacement keys.
+	Normalizes the source dictionary keys using the specified substitutions.
 
 	Typically used to normalize a dataset where the same info can be listed
 	under different names.
 
-	Example map:
-	{
-		"artist": ["Artist", "ARTIST"],
-		"year": ["Year", "yr", "yob"],
-	}
+	Args:
+		source: The dictionary in which to normalize the keys.
+		replacements: Possible keys with replacements.
+		allow_original_key: Flag for using a key in replacements as a key in a source dictionary.
+
+	Returns:
+		A new dict where all keys are guaranteed to be reference keys with values taken from any of replacement
+		keys.
+
+	Examples:
+		>>>	replacements = {
+		>>>		"artist": ["Artist", "ARTIST"],
+		>>>		"year": ["Year", "yr", "yob"],
+		>>>	}
+		>>>	source = {
+		>>>		'ARTIST': 'Ivanov Ivan',
+		>>>		'yr': 2012,
+		>>>	}
+		>>>	normalize_dict(source, replacements)
+		{
+			'artist': 'Ivanov Ivan',
+			'year': 2012,
+		}
 	"""
 	ret = {}
+
 	for key in replacements:
 		candidates = replacements[key]
+
 		if allow_original_key:
-			candidates += (key,)
+			candidates = list(candidates) + [key]
+
 		value = find_value(source, candidates)
 		ret[key] = value
+
 	return ret
 
 
-def filter_dict(src: dict, keys_to_filter: Sequence[Hashable]) -> dict:
+def filter_dict(src: Dict[DictKey], keys_to_filter: Sequence[DictKey]) -> dict:
 	"""
 	Filters dictionary by keys_to_filter set.
 
@@ -56,7 +92,7 @@ def filter_dict(src: dict, keys_to_filter: Sequence[Hashable]) -> dict:
 		keys_to_filter: Set of keys that should be in the final dictionary.
 
 	Returns:
-		Filtered source dictionary.
+		New dictionary with data from filtered source dict.
 	"""
 	return {key: value for key, value in src.items() if key in keys_to_filter}
 
