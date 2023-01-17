@@ -12,8 +12,10 @@ class FilterSet:
 	def __init__(self, **kwargs):
 		for f in self._required:
 			assert (f in kwargs), f"Field `{f}` is mandatory"
+
 		for key in kwargs:
 			assert key in self._fields, f"Unknown field `{key}`"
+
 		self.values = kwargs
 
 	def __getattr__(self, name: str):
@@ -140,7 +142,7 @@ def create_filter_set(fields, required=None, parent=None):
 	ret_parent = parent
 
 	# Copy things from parent if needed
-	if parent != None:
+	if parent is not None:
 		for f in parent._fields:
 			ret_fields.append(f)
 		for f in parent._required:
@@ -148,7 +150,8 @@ def create_filter_set(fields, required=None, parent=None):
 
 	for f in fields:
 		ret_fields.append(f)
-	if required != None:
+
+	if required is not None:
 		for f in required:
 			ret_required.append(f)
 
@@ -156,4 +159,5 @@ def create_filter_set(fields, required=None, parent=None):
 		_fields = ret_fields
 		_required = ret_required
 		_parent = ret_parent
+
 	return FilterSetInstance
