@@ -1,4 +1,4 @@
-from .date import Week, get_week, WeekNumbering
+from .date import Week, get_week, WeekNumbering, parse_month, parse_date, normalize_date
 
 import pytest
 from arrow import get as arrow_get
@@ -32,6 +32,52 @@ GET_WEEK_TEST_DATA = [
 	(arrow_get(2024, 1, 1), WeekNumbering.NORMAL, Week(1, 2024)),
 	(arrow_get(2024, 1, 8), WeekNumbering.NORMAL, Week(2, 2024)),
 ]
+
+
+@pytest.mark.parametrize(
+	"yyyy_mm, expected_result",
+	[
+		('2022-1', (2022, 1)),
+		('2024-12', (2024, 12))
+	]
+)
+def test_parse_month(yyyy_mm, expected_result):
+	assert parse_month(yyyy_mm) == expected_result
+
+
+@pytest.mark.parametrize(
+	"date, format_or_formats",
+	[
+		('', 'YYYY-MM'),
+		('', ['YYYY', 'MM']),
+	]
+)
+def test_parse_date_errors(date, format_or_formats):
+	with pytest.raises(ValueError):
+		parse_date(date, format_or_formats)
+
+
+@pytest.mark.parametrize(
+	"date, format_or_formats, expected_result",
+	[
+		('2022-12-11', 'YYYY-MM-DD', arrow_get(2022, 12, 11)),
+		('2022-12', ['YYYY-MM-DD', 'YYYY-MM'], arrow_get(2022, 12, 1)),
+	]
+)
+def test_parse_date(date, format_or_formats, expected_result):
+	assert parse_date(date, format_or_formats) == expected_result
+
+
+@pytest.mark.parametrize(
+	"date, input_formats, output_format, allow_empty, expected_result",
+	[
+		('2022-12-12', 'YYYY-MM-DD', 'YYYY-MM', False, '2022-12'),
+		('2023-01', ['YYYY-MM-DD', 'YYYY-MM'], 'YYYY-MM-DD', False, '2023-01-01'),
+		(None, [], '', True, None)
+	]
+)
+def test_normalize_date(date, input_formats, output_format, allow_empty, expected_result):
+	assert normalize_date(date, input_formats, output_format, allow_empty) == expected_result
 
 
 @pytest.mark.parametrize(

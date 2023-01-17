@@ -2,7 +2,7 @@ from .array import ensure_iterable
 from .deprecated import deprecated
 
 import datetime
-from typing import Union, NamedTuple
+from typing import Union, NamedTuple, Tuple, List, Optional
 from abc import ABC, abstractmethod
 from enum import Enum, auto, unique
 
@@ -10,6 +10,7 @@ import arrow
 
 
 DateLikeObject = Union[datetime.date, datetime.datetime, arrow.Arrow]
+DateFormats = Union[str, List[str], Tuple[str]]		# TODO: Change possible types in ensure_iterable and DateFormats.
 
 
 class Week(NamedTuple):
@@ -41,27 +42,69 @@ class WeekNumbering(Enum):
 	MATCH_YEAR = auto()
 
 
-def parse_month(yyyy_mm):
+def parse_month(yyyy_mm: str) -> Tuple[int, int]:
+	"""
+	Parses string which contains month and year.
+	Expected format: 'YYYY-M'
+
+	Args:
+		yyyy_mm: Year and month to be parsed.
+
+	Returns:
+		Tuple where the first value is year and the second is month.
+
+	Raises:
+		ValueError: When data could not be extracted.
+	"""
 	a = arrow.get(yyyy_mm, 'YYYY-M')
-	return (a.year, a.month)
+	return a.year, a.month
 
 
-def parse_date(s, format_or_formats):
-	d = None
+def parse_date(s: str, format_or_formats: DateFormats) -> arrow.Arrow:
+	"""
+	Tries to parse the date according to the specified format or formats.
+
+	Args:
+		s: Date to be parsed.
+		format_or_formats: Possible format or formats for date parsing.
+
+	Raises:
+		ValueError: When date can't be parsed.
+
+	Returns:
+		arrow.Arrow object.
+	"""
 	for f in ensure_iterable(format_or_formats):
 		try:
-			d = arrow.get(s, f)
-			break
-		except:  # should probably narrow to arrow.ParserError
+			return arrow.get(s, f)
+
+		except ValueError:
 			pass
-	if d == None:
-		raise ValueError(f"Could not parse date `{s}` with any of the specified formats")
-	return d
+
+	raise ValueError(f"Could not parse date `{s}` with any of the specified formats")
 
 
-def normalize_date(s, input_formats, output_format, allow_empty=True):
-	if s == None and allow_empty:
+def normalize_date(
+	s: Optional[str],
+	input_formats: DateFormats,
+	output_format: str,
+	allow_empty: bool = True,
+) -> Optional[str]:
+	"""
+	Converts date from one format to another.
+
+	Args:
+		s: Date to be converted.
+		input_formats: Possible format or formats for date parsing.
+		output_format: The format to convert the date to.
+		allow_empty: Flag for resolving an empty date value.
+
+	Returns:
+		None if source date is None and empty date is allowed.
+	"""
+	if s is None and allow_empty:
 		return None
+
 	return parse_date(s, input_formats).format(output_format)
 
 
