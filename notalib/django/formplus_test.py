@@ -9,7 +9,6 @@ from hypothesis.strategies import lists, dates
 
 
 def test_MonthArrayField():
-	return
 	TestCase = namedtuple('TestCase', ['input', 'output', 'valid'])
 	data = [
 		TestCase(input='2019-01', output=[(2019, 1)], valid=True),
@@ -24,6 +23,7 @@ def test_MonthArrayField():
 
 	for d in data:
 		f = MonthArrayField()
+
 		if d.valid:
 			assert f.clean(d.input) == d.output
 		else:
@@ -36,6 +36,7 @@ def test_MonthArrayField_correctness(source):
 	source_str = '|'.join(map(lambda x: '-'.join(str(x).split('-')[:2]), source))
 	f = MonthArrayField()
 	result = f.clean(source_str)
+
 	for i in range(0, len(result)):
 		assert result[i][0] == source[i].year
 		assert result[i][1] == source[i].month

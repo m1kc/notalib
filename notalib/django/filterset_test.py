@@ -5,15 +5,21 @@ from django.forms import IntegerField, CharField
 
 
 def test_filter_set():
-	CountryFilterSet = create_filter_set({
-		'country': CharField(required=True),
-	}, required=['country'])
-
-	AddressFilterSet = create_filter_set({
-		'city': CharField(required=True),
-		'street': CharField(),
-		'building': IntegerField(),
-	}, required=['city'], parent=CountryFilterSet)
+	CountryFilterSet = create_filter_set(
+		{
+			'country': CharField(required=True),
+		},
+		required=['country']
+	)
+	AddressFilterSet = create_filter_set(
+		{
+			'city': CharField(required=True),
+			'street': CharField(),
+			'building': IntegerField(),
+		},
+		required=['city'],
+		parent=CountryFilterSet,
+	)
 
 	with pytest.raises(AssertionError):
 		from_request(AddressFilterSet, {})

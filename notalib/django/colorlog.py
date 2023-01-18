@@ -5,7 +5,7 @@ from datetime import datetime
 
 class ColorFormatter(logging.Formatter):
 	"""
-	Example usage:
+	Logging config example (settings.py):
 	
 	LOGGING = {
 		'version': 1,
@@ -37,21 +37,24 @@ class ColorFormatter(logging.Formatter):
 		},
 	}
 	"""
-	
+	LOG_LEVEL_COLORS = {
+		'DEBUG': t.white('DBG'),
+		'INFO': t.blue('INF'),
+		'WARNING': t.yellow('WRN'),
+		'ERROR': t.red('ERR'),
+		'CRITICAL': t.bright_red('CRT'),
+	}
+	NAME_LENGTH_MAX = 19
+
 	def __init__(self, *args, **kwargs):
 		super(ColorFormatter, self).__init__()
 
-	def format(self, record):
+	def format(self, record) -> str:
 		lvl = record.levelname
-		if record.levelname == 'DEBUG': lvl = t.white('DBG')
-		if record.levelname == 'INFO': lvl = t.blue('INF')
-		if record.levelname == 'WARNING': lvl = t.yellow('WRN')
-		if record.levelname == 'ERROR': lvl = t.red('ERR')
-		if record.levelname == 'CRITICAL': lvl = t.bright_red('CRT')
-
-		NAME_LENGTH_MAX = 19
+		lvl = self.LOG_LEVEL_COLORS.get(lvl, lvl)
 		name = record.name
-		if len(name) > NAME_LENGTH_MAX:
-			name = name[-NAME_LENGTH_MAX:]
+
+		if len(name) > self.NAME_LENGTH_MAX:
+			name = name[-self.NAME_LENGTH_MAX:]
 
 		return f'{datetime.strftime(datetime.now(), "%H:%M:%S.%f")}|{name}[{lvl}] {record.getMessage()}'
