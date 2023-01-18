@@ -2,7 +2,7 @@ from .array import ensure_iterable
 from .deprecated import deprecated
 
 import datetime
-from typing import Union, NamedTuple, Tuple, List, Optional
+from typing import Union, NamedTuple, Tuple, Optional, Iterable
 from abc import ABC, abstractmethod
 from enum import Enum, auto, unique
 
@@ -10,7 +10,7 @@ import arrow
 
 
 DateLikeObject = Union[datetime.date, datetime.datetime, arrow.Arrow]
-DateFormats = Union[str, List[str], Tuple[str]]		# TODO: Change possible types in ensure_iterable and DateFormats.
+DateFormats = Union[str, Iterable[str]]
 
 
 class Week(NamedTuple):

@@ -83,7 +83,7 @@ def normalize_dict(
 	return ret
 
 
-def filter_dict(src: Dict[DictKey], keys_to_filter: Sequence[DictKey]) -> dict:
+def filter_dict(src: Dict[DictKey, Any], keys_to_filter: Sequence[DictKey]) -> dict:
 	"""
 	Filters dictionary by keys_to_filter set.
 

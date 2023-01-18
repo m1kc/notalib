@@ -8,10 +8,6 @@ from hypothesis import given
 from hypothesis.strategies import lists, integers
 
 
-def _collect(x):
-	return list(x)
-
-
 def _flatten(arr):
 	return reduce(add, arr, [])
 
@@ -26,7 +22,7 @@ def _flatten(arr):
 	]
 )
 def test_as_chunks(sequence, chunk_size, expected_result):
-	assert _collect(as_chunks(sequence, chunk_size)) == expected_result
+	assert list(as_chunks(arr=sequence, n=chunk_size)) == expected_result
 
 
 @given(lists(integers()), integers(min_value=1))
@@ -40,7 +36,7 @@ def test_as_chunks_smallscale(source, x):
 
 
 def _test_as_chunks(source, x):
-	result = _collect(as_chunks(source, x))
+	result = list(as_chunks(source, x))
 	num_short = 0
 	last_short = False
 
@@ -66,6 +62,7 @@ def _test_as_chunks(source, x):
 		('x', ('x',)),
 		(['x'], ['x']),
 		(('x', 'y'), ('x', 'y')),
+		(b'deadbee', (b'deadbee', )),
 	]
 )
 def test_ensure_iterable(src, exp):
