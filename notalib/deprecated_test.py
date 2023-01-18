@@ -1,6 +1,5 @@
 from .deprecated import deprecated
 
-
 import pytest
 
 

@@ -1,7 +1,8 @@
 from .dict import filter_dict, deep_merge, find_field, find_value, normalize_dict
 
-import pytest
 from json import dumps
+
+import pytest
 
 
 FILTER_DICT_TEST_DATA1 = {

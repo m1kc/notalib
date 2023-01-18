@@ -55,15 +55,15 @@ def normalize_dict(
 		keys.
 
 	Examples:
-		>>>	replacements = {
-		>>>		"artist": ["Artist", "ARTIST"],
-		>>>		"year": ["Year", "yr", "yob"],
-		>>>	}
-		>>>	source = {
-		>>>		'ARTIST': 'Ivanov Ivan',
-		>>>		'yr': 2012,
-		>>>	}
-		>>>	normalize_dict(source, replacements)
+		>>> replacements = {
+		>>> 	"artist": ["Artist", "ARTIST"],
+		>>> 	"year": ["Year", "yr", "yob"],
+		>>> }
+		>>> source = {
+		>>> 	'ARTIST': 'Ivanov Ivan',
+		>>> 	'yr': 2012,
+		>>> }
+		>>> normalize_dict(source, replacements)
 		{
 			'artist': 'Ivanov Ivan',
 			'year': 2012,
