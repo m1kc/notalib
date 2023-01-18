@@ -17,20 +17,8 @@ from datetime import datetime, timedelta
 # https://asciinema.org/a/UI1aOqjQC1KXx303kaVGrxjQp
 
 
-# print('==> Doing important stuff...')
-# N = 2_000_000
-# with polosa(total=N) as p:
-# 	for i in range(0, N):
-# 		p.tick(i+1, f'real index is {i}')
-#		# or
-#		#p.tick(caption=f'real index is {i}')
-#		# or even
-#		#p.tick()
-# print('==> All done!')
-
-
 class _Polosa:
-	def __init__(self, total=None, throttle_ms=200):
+	def __init__(self, total: int = None, throttle_ms: int = 200) -> None:
 		self.start = datetime.now()
 		self.last_update = None
 		self.last_num = 0
@@ -41,17 +29,19 @@ class _Polosa:
 	def tick(self, num=None, caption=''):
 		now = datetime.now()
 
-		if num == None:
+		if num is None:
 			self.last_num += 1
 			num = self.last_num
 
 		self.buf = f'{num}'
-		if self.total != None:
+
+		if self.total is not None:
 			self.buf += f'/{self.total}'
+
 		per_sec = num / (now - self.start).total_seconds()
 		self.buf += f'   {per_sec:.1f}/sec   {caption}'
 
-		if (self.last_update != None) and (now - self.last_update < timedelta(milliseconds=self.throttle_ms)):
+		if (self.last_update is not None) and (now - self.last_update < timedelta(milliseconds=self.throttle_ms)):
 			return
 
 		print(self.buf, end='   \r')
@@ -63,9 +53,22 @@ class _Polosa:
 
 @contextmanager
 def polosa(*args, **kwargs):
+	"""
+	Examples:
+		>>> print('==> Doing important stuff...')
+		>>> N = 2_000_000
+		>>> with polosa(total=N) as p:
+		>>> 	for i in range(N):
+		>>> 		p.tick(i + 1, f'real index is {i}')
+		>>>		# or
+		>>>		#p.tick(caption=f'real index is {i}')
+		>>>		# or even
+		>>>		#p.tick()
+		>>> print('==> All done!')
+	"""
 	p = _Polosa(*args, **kwargs)
+
 	try:
 		yield p
 	finally:
 		p._finalize()
-
