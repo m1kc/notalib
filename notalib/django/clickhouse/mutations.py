@@ -7,16 +7,11 @@ def get_mutations_in_progress_count(db_name: str, table_name: str) -> int:
 	"""
 	Requests from the System.Mutants table the number of mutations in progress.
 
-	Parameters
-	----------
-	db_name: str
-		Must contain name of existed database with tables.
-	table_name: str
-		Must contain name of existed table in database with db_name.
+	Args:
+		db_name: Must contain name of existed database with tables.
+		table_name: Must contain name of existed table in database with db_name.
 
-	Returns
-	-------
-	int
+	Returns:
 		Number of mutants in progress.
 	"""
 

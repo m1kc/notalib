@@ -18,28 +18,34 @@ CLICKHOUSE_PROFILE = settings.CLICKHOUSE_PROFILE
 
 
 def indent(n: int, s: str):
-	padding = ' '*n
-	return '\n'.join(map(lambda x: padding+x, s.split('\n')))
+	padding = ' ' * n
+	return '\n'.join(map(lambda x: padding + x, s.split('\n')))
 
 
 def midrange_cut(s: str, n: int):
 	if len(s) <= n:
 		return s
+
 	right = n // 10
 	left = n - right
 	ret = s[:left] + '\n...\n' + s[-right:]
+
 	return ret
 
 
 #@event.listens_for(Engine, "before_cursor_execute")
-def before_cursor_execute(conn, cursor, statement, parameters, context, executemany):
-	if not CLICKHOUSE_PROFILE: return
+def before_cursor_execute(conn, cursor, statement, parameters, context, executemany) -> None:
+	if not CLICKHOUSE_PROFILE:
+		return
+
 	context._query_start_time = time.time()
 
 
 #@event.listens_for(Engine, "after_cursor_execute")
-def after_cursor_execute(conn, cursor, statement, parameters, context, executemany):
-	if not CLICKHOUSE_PROFILE: return
+def after_cursor_execute(conn, cursor, statement, parameters, context, executemany) -> None:
+	if not CLICKHOUSE_PROFILE:
+		return
+
 	total = time.time() - context._query_start_time
 
 	parameters_s = midrange_cut(str(parameters), 200)

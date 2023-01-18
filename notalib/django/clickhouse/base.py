@@ -4,7 +4,7 @@ import logging; log = logging.getLogger(__name__)
 
 from notalib.time import Timing
 from sqlalchemy import create_engine, event
-from sqlalchemy.engine import Engine
+from sqlalchemy.engine import Engine, Connection
 from django.conf import settings
 
 
@@ -26,7 +26,7 @@ engine = create_engine(
 )
 
 
-def get_connection():
+def get_connection() -> Connection:
 	return engine.connect()
 
 
