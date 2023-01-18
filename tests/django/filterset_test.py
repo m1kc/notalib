@@ -1,4 +1,4 @@
-from .filterset import create_filter_set, from_request
+from notalib.django.filterset import create_filter_set, from_request
 
 import pytest
 from django.forms import IntegerField, CharField

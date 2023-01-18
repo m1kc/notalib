@@ -1,4 +1,4 @@
-from .date import Week, get_week, WeekNumbering, parse_month, parse_date, normalize_date
+from notalib.date import Week, get_week, WeekNumbering, parse_month, parse_date, normalize_date
 
 import pytest
 from arrow import get as arrow_get

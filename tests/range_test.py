@@ -1,4 +1,4 @@
-from .range import Range
+from notalib.range import Range
 
 from datetime import date, datetime
 

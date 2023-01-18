@@ -1,4 +1,4 @@
-from .timedelta import convert_timedelta
+from notalib.timedelta import convert_timedelta
 
 from datetime import timedelta
 

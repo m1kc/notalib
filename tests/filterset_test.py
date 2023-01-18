@@ -1,4 +1,4 @@
-from .filterset import create_filter_set
+from notalib.filterset import create_filter_set
 
 import pytest
 

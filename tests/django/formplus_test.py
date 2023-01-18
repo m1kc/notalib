@@ -1,4 +1,4 @@
-from .formplus import MonthArrayField
+from notalib.django.formplus import MonthArrayField
 
 from collections import namedtuple
 

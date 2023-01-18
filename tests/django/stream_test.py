@@ -1,4 +1,4 @@
-from .stream import stream_json
+from notalib.django.stream import stream_json
 
 from typing import Iterable
 

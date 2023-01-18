@@ -1,4 +1,4 @@
-from .format import format_long_seq
+from notalib.format import format_long_seq
 
 import pytest
 

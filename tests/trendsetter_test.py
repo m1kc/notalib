@@ -1,4 +1,4 @@
-from .trendsetter import Unit, Trendsetter, SimpleUnit
+from notalib.trendsetter import Unit, Trendsetter, SimpleUnit
 
 from abc import ABC, abstractmethod
 

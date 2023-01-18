@@ -1,4 +1,4 @@
-from .pandasplus import replace_null_objects, row_to_dict
+from notalib.pandas.pandasplus import replace_null_objects, row_to_dict
 
 from pytest import mark
 from arrow import get as arrow_get

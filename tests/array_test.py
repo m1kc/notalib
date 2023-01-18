@@ -1,4 +1,4 @@
-from .array import as_chunks, ensure_iterable
+from notalib.array import as_chunks, ensure_iterable
 
 from functools import reduce
 from operator import add

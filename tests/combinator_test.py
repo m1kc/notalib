@@ -1,4 +1,4 @@
-from .combinator import Combinator
+from notalib.combinator import Combinator
 
 import pytest
 

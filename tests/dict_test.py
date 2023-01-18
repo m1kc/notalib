@@ -1,4 +1,4 @@
-from .dict import filter_dict, deep_merge, find_field, find_value, normalize_dict
+from notalib.dict import filter_dict, deep_merge, find_field, find_value, normalize_dict
 
 from json import dumps
 

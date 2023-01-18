@@ -1,4 +1,4 @@
-from .deprecated import deprecated
+from notalib.deprecated import deprecated
 
 import pytest
 
