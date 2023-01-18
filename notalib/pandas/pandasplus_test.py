@@ -1,8 +1,20 @@
-from .pandasplus import replace_null_objects
+from .pandasplus import replace_null_objects, row_to_dict
 
 from pytest import mark
 from arrow import get as arrow_get
-from pandas import DataFrame, NaT, NA
+from pandas import DataFrame, NaT, NA, Series
+
+
+@mark.parametrize(
+	"row, key_as, expected_first_row",
+	[
+		((0, Series({'A': 1, 'B': 2})), None, {'A': 1, 'B': 2}),
+		((15, Series({'A': 1, 'B': 2})), 'RowID', {'A': 1, 'B': 2, 'RowID': 15}),
+		((15, Series({'A': 1, 'B': 2})), 'A', {'A': 15, 'B': 2}),
+	]
+)
+def test_row_to_dict(row, key_as, expected_first_row):
+	assert row_to_dict(row, key_as) == expected_first_row
 
 
 SOURCE_DATAFRAME = DataFrame(
