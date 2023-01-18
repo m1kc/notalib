@@ -40,7 +40,7 @@ class Fibonacci:
 def test_trendsetter():
 	ts = Trendsetter({
 		# No assumptions what your options look like.
-		'use_experimental_adder': False
+		'use_experimental_adder': False,
 	})
 	ts.register('Adder', AdderUnit())
 	ts.register(

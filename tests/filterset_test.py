@@ -45,15 +45,19 @@ def test_filter_set():
 
 	class SomeMock:
 		called_times = 0
+
 		def assert_country(self, value):
 			assert value == 'Russia'
 			self.called_times += 1
+
 		def assert_city(self, value):
 			assert value == 'Penza'
 			self.called_times += 1
+
 		def assert_street(self, value):
 			assert value == 'Something st.'
 			self.called_times += 1
+
 	tfa = SomeMock()
 
 	fs.apply({

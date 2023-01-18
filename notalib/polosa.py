@@ -1,5 +1,6 @@
 from contextlib import contextmanager
 from datetime import datetime, timedelta
+from typing import Optional
 
 
 # Так, сейчас будет реклама.
@@ -18,7 +19,7 @@ from datetime import datetime, timedelta
 
 
 class _Polosa:
-	def __init__(self, total: int = None, throttle_ms: int = 200) -> None:
+	def __init__(self, total: Optional[int] = None, throttle_ms: int = 200) -> None:
 		self.start = datetime.now()
 		self.last_update = None
 		self.last_num = 0

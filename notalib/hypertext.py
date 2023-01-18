@@ -7,7 +7,7 @@ REGEX = re.compile('<[^>]*>')
 
 
 class MLStripper(HTMLParser):
-	def __init__(self):
+	def __init__(self) -> None:
 		super().__init__()
 		self.reset()
 		self.strict = False

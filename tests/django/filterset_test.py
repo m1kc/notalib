@@ -9,7 +9,7 @@ def test_filter_set():
 		{
 			'country': CharField(required=True),
 		},
-		required=['country']
+		required=['country'],
 	)
 	AddressFilterSet = create_filter_set(
 		{

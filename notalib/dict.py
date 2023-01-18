@@ -37,7 +37,7 @@ def find_value(d: dict, candidates: Iterable[Hashable]) -> Any:
 def normalize_dict(
 	source: Dict[DictKey, Any],
 	replacements: Dict[DictKey, Sequence[DictKey]],
-	allow_original_key=True,
+	allow_original_key: bool = True,
 ) -> dict:
 	"""
 	Normalizes the source dictionary keys using the specified substitutions.
