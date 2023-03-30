@@ -388,3 +388,74 @@ Waits until all mutations for the given table are complete.
 wait_result("SOME_DATABASE", "SOME_TABLE_IN_DATABASE")
 # UPDATE complete, continue
 ```
+
+## Tablib-related
+
+Required packages: [tablib](https://pypi.org/project/tablib/)
+
+#### notalib.tablib.shortcuts.load_dataset
+
+Allows to simplify the loading of datasets, even custom ones.
+
+```python
+from notalib.tablib.shortcuts import load_dataset
+
+with open("report.xlsx", mode='rb') as file:
+    ds = load_dataset(file)
+
+### Or you can use custom Dataset class and format
+
+from tablib import Dataset
+
+
+class MyDataset(Dataset):
+    pass
+
+
+with open("report.csv", mode='rb') as file:
+    ds = load_dataset(file, 'csv', MyDataset)
+```
+
+#### notalib.tablib.dataset.ExtendedDataset
+
+Extended tablib.Dataset class, which adds useful data processing methods.
+
+#### notalib.tablib.dataset.ExtendedDataset.drop_duplicates
+
+Removes all duplicate rows from the `ExtendedDataset` object while maintaining the original order.
+
+#### notalib.tablib.dataset.ExtendedDataset.drop_empty
+
+Removes rows with empty data in specified columns.
+
+#### notalib.tablib.dataset.ExtendedDataset.drop_empty_rows
+
+Removes rows in which all values are empty.
+
+#### notalib.tablib.dataset.ExtendedDataset.apply_to_column
+
+Applies the function to the values in the specified column.
+
+#### notalib.tablib.dataset.ExtendedDataset.replace_empty_objects
+
+Replaces empty values with a new one.
+
+#### notalib.tablib.dataset.ExtendedDataset.set_used_columns
+
+Returns a new dataset based on the specified header labels.
+
+#### notalib.tablib.dataset.ExtendedDataset.get_headers_map
+
+Returns a list of Boolean objects based on a given set of header labels.
+
+#### notalib.tablib.dataset.ExtendedDataset.get_header_index
+
+Calculates the index of the header by its label.
+
+#### notalib.tablib.dataset.ExtendedDataset.groupby
+
+Sets tags to rows and returns list of groups for filtering.
+
+#### notalib.tablib.dataset.ExtendedDataset.rename_headers
+
+Renames header labels.
