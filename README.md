@@ -337,6 +337,13 @@ class SomeViewSet(...):
         return stream_json(data)
 ```
 
+## Custom Django HTTP Responses
+
+### Redirect responses
+
+#### notalib.django.http.HttpResponseSeeOther
+#### notalib.django.http.HttpResponseTemporaryRedirect
+
 ## Django/Clickhouse
 
 _Stage: alpha_
