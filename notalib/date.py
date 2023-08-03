@@ -75,7 +75,7 @@ def normalize_date(
 			the ValueError error will be thrown by the parsing function.
 
 	Example:
-		>>> normalize_date('12.07.2023', ('D.M.YYYY', ''), 'YYYY-MM-DD', False)
+		>>> normalize_date('12.07.2023', ('D.M.YYYY', 'DD.MM.YYYY'), 'YYYY-MM-DD', False)
 		'2023-07-12'
 
 	Returns:
