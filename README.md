@@ -421,9 +421,13 @@ wait_result("SOME_DATABASE", "SOME_TABLE_IN_DATABASE")
 
 ## Tablib-related
 
+_:warning: Experimental API. Subject to change. Don't use in production. You've been warned._
+
 Required packages: [tablib](https://pypi.org/project/tablib/)
 
 #### notalib.tablib.shortcuts.load_dataset
+
+_:warning: Experimental API. Subject to change. Don't use in production. You've been warned._
 
 Allows to simplify the loading of datasets, even custom ones.
 
@@ -447,6 +451,8 @@ with open("report.csv", mode='rb') as file:
 ```
 
 #### notalib.tablib.dataset.ExtendedDataset
+
+_:warning: Experimental API. Subject to change. Don't use in production. You've been warned._
 
 Extended tablib.Dataset class, which adds useful data processing methods.
 
