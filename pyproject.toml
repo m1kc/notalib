@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "notalib"
-version = "2.1.1-rc0"
+version = "2.1.0-rc1"
 description = "A collection of utility functions & classes"
 authors = ["m1kc (Max Musatov) <m1kc@yandex.ru>"]
 license = "MIT"
@@ -32,6 +32,7 @@ pandas = [
   {version = "^1.1.5", python = ">=3.9"},
   {version = "*", python = "<3.9"}
 ]
+tablib = "^3.4.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
