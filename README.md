@@ -82,6 +82,26 @@ my_function('dog')
 #### notalib.date.parse_month
 #### notalib.date.parse_date
 #### notalib.date.normalize_date :fire:
+
+Re-formats a date, parsing it as any of the `input_formats` and outputting it as `output_format`.
+
+This function uses Arrow date formats. See [Arrow docs](https://arrow.readthedocs.io/en/latest/guide.html#supported-tokens) for details.
+
+```
+Args:
+	s: The source date in one of the input_formats to be converted to target format.
+	input_formats: Source date representation formats.
+	output_format: The format in which the date will be output.
+	allow_empty: if true, `None` input will produce `None` output, otherwise a ValueError will be thrown.
+
+Example:
+	>>> normalize_date('12.07.2023', ('D.M.YYYY', 'DD.MM.YYYY'), 'YYYY-MM-DD', False)
+	'2023-07-12'
+
+Returns:
+	Converted date string from any of the input formats to the specified output format.
+```
+
 #### <s>notalib.date.get_week_number</s>
 
 _Removed in 2.0.0. Use `get_week` instead. If you want the "old" week numbering, use get_week with `WeekNumbering.MATCH_YEAR` and add 1 to week number._
