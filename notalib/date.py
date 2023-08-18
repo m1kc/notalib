@@ -65,21 +65,22 @@ def normalize_date(
 	allow_empty=True,
 ) -> Optional[str]:
 	"""
-	Converts date representation from input_formats to output_format.
+	Re-formats a date, parsing it as any of the input_formats and outputting it as output_format.
+
+ 	This function uses Arrow date formats. See [Arrow docs](https://arrow.readthedocs.io/en/latest/guide.html#supported-tokens) for details.
 
 	Args:
-		s: The source date in one of the input_formats to be converted to another format.
+		s: The source date in one of the input_formats to be converted to target format.
 		input_formats: Source date representation formats.
-		output_format: The format in which the date will be specified.
-		allow_empty: Support flag for None values. If True - None dates will be returned as None otherwice
-			the ValueError error will be thrown by the parsing function.
+		output_format: The format in which the date will be output.
+		allow_empty: if true, `None` input will produce `None` output, otherwise a ValueError will be thrown.
 
 	Example:
 		>>> normalize_date('12.07.2023', ('D.M.YYYY', 'DD.MM.YYYY'), 'YYYY-MM-DD', False)
 		'2023-07-12'
 
 	Returns:
-		Converted date string from input formats to specified output format.
+		Converted date string from any of the input formats to the specified output format.
 	"""
 	if s is None and allow_empty:
 		return None
