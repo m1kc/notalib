@@ -20,9 +20,9 @@ poetry add notalib
 
 ## Compatibility promise
 
-Version numbers follow the semver rules. Minor releases are backwards-compatible. It should be safe to update, say, from 1.2 to 1.4.
-
-Major releases are not backwards-compatible. If you upgrade, say, from 1.4 to 2.0, read the release notes to see what's changed.
+Version numbers follow the semver rules.
+* Minor releases are backwards-compatible. For example, an upgrade from 1.2 to 1.4 should be safe.
+* Major releases are not backwards-compatible. For example, an upgrade from 1.4 to 2.0 is unsafe — read the release notes to see what's changed.
 
 
 ## Maintenance & bugfixes
