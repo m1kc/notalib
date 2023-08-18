@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, wild, ci ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, wild, ci ]
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
