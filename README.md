@@ -323,6 +323,15 @@ How to use:
 #### notalib.django.formplus.IntegerArrayField
 #### notalib.django.formplus.StringArrayField
 #### notalib.django.formplus.MonthArrayField
+
+#### notalib.django.http.HttpResponseSeeOther
+
+Spec-compliant HTTP 303 See Other redirect (Django only provides deprecated 301 and 302).
+
+#### notalib.django.http.HttpResponseTemporaryRedirect
+
+Spec-compliant HTTP 307 Temporary Redirect (Django only provides deprecated 301 and 302).
+
 #### notalib.django.request_time_middleware.RequestTimeLoggingMiddleware
 #### notalib.django.stream.stream_json
 
@@ -337,12 +346,6 @@ class SomeViewSet(...):
         return stream_json(data)
 ```
 
-## Custom Django HTTP Responses
-
-### Redirect responses
-
-#### notalib.django.http.HttpResponseSeeOther
-#### notalib.django.http.HttpResponseTemporaryRedirect
 
 ## Django/Clickhouse
 
