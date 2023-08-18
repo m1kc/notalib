@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class AuthCheckConfig(AppConfig):
-    name = 'xauth'
+	name = 'notalib.django_xauth'

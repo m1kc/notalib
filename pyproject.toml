@@ -18,14 +18,20 @@ python = "^3.7.3"
 arrow = ">=0.14.0,<2.0.0"
 
 [tool.poetry.group.dev.dependencies]
-flake8 = "^4.0.1"
+flake8 = "^5.0.0"
 pytest = "^7.0.0"
 pytest-django = "^4.5.2"
 pytest-cov = "^3.0.0"
 Django = ">=2"
 hypothesis = {extras = ["django", "numpy"], version = "^6.36.1"}
-numpy = "^1.21.1"
-pandas = "^1.1.5"
+numpy = [
+  {version = ">=1.20.0", python = ">=3.9"},
+  {version = "*", python = "<3.9"}
+]
+pandas = [
+  {version = "^1.1.5", python = ">=3.9"},
+  {version = "*", python = "<3.9"}
+]
 tablib = "^3.4.0"
 
 [build-system]
