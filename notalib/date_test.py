@@ -1,4 +1,4 @@
-from .date import Week, get_week, WeekNumbering
+from .date import Week, get_week, WeekNumbering, normalize_date
 
 import pytest
 from arrow import get as arrow_get
@@ -40,3 +40,15 @@ GET_WEEK_TEST_DATA = [
 )
 def test_get_week(date, mode, expected_week_number):
 	assert get_week(date, mode) == expected_week_number
+
+
+@pytest.mark.parametrize(
+	"date, input_formats, output_format, allow_empty, expected_result",
+	[
+		(None, (), '', True, None),
+		('3.8.2023', ('D.M.YYYY',), 'YYYY-MM-DD', False, '2023-08-03'),
+		('03.08.2023', ('D.M.YYYY', 'DD.MM.YYYY'), 'YYYYMMDD', True, '20230803'),
+	],
+)
+def test_normalize_date(date, input_formats, output_format, allow_empty, expected_result):
+	assert normalize_date(date, input_formats, output_format, allow_empty) == expected_result

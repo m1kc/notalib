@@ -1,8 +1,7 @@
 from .array import ensure_iterable
-from .deprecated import deprecated
 
 import datetime
-from typing import Union, NamedTuple
+from typing import Union, NamedTuple, Optional, Collection
 from abc import ABC, abstractmethod
 from enum import Enum, auto, unique
 
@@ -59,9 +58,32 @@ def parse_date(s, format_or_formats):
 	return d
 
 
-def normalize_date(s, input_formats, output_format, allow_empty=True):
-	if s == None and allow_empty:
+def normalize_date(
+	s: Optional[str],
+	input_formats: Collection[str],
+	output_format: str,
+	allow_empty=True,
+) -> Optional[str]:
+	"""
+	Converts date representation from input_formats to output_format.
+
+	Args:
+		s: The source date in one of the input_formats to be converted to another format.
+		input_formats: Source date representation formats.
+		output_format: The format in which the date will be specified.
+		allow_empty: Support flag for None values. If True - None dates will be returned as None otherwice
+			the ValueError error will be thrown by the parsing function.
+
+	Example:
+		>>> normalize_date('12.07.2023', ('D.M.YYYY', 'DD.MM.YYYY'), 'YYYY-MM-DD', False)
+		'2023-07-12'
+
+	Returns:
+		Converted date string from input formats to specified output format.
+	"""
+	if s is None and allow_empty:
 		return None
+
 	return parse_date(s, input_formats).format(output_format)
 
 
@@ -100,7 +122,6 @@ class NormalWeekExtractor(WeekExtractor):
 		return week
 
 
-@deprecated('notalib: current get_week behavior is considered buggy and will be changed in 2.0.')
 def get_week(
 	date_object: DateLikeObject,
 	mode: WeekNumbering = WeekNumbering.NORMAL,
