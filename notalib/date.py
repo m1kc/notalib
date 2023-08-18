@@ -67,7 +67,7 @@ def normalize_date(
 	"""
 	Re-formats a date, parsing it as any of the input_formats and outputting it as output_format.
 
- 	This function uses Arrow date formats. See [Arrow docs](https://arrow.readthedocs.io/en/latest/guide.html#supported-tokens) for details.
+	This function uses Arrow date formats. See [Arrow docs](https://arrow.readthedocs.io/en/latest/guide.html#supported-tokens) for details.
 
 	Args:
 		s: The source date in one of the input_formats to be converted to target format.
