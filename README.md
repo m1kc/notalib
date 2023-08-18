@@ -297,7 +297,7 @@ tag = get_last_tag()
 # Tag(hash='c4b6e06f57ab4773e2881d286804d4e3141b5195', label='v1.4.0')
 ```
 
-## Pandas-related
+## Tools for Pandas
 
 #### notalib.pandas.pandasplus.row_to_dict
 #### notalib.pandas.pandasplus.replace_null_objects
@@ -315,7 +315,7 @@ new_df
 # 3  Hello, notalib!
 ```
 
-## Django-related
+## Tools for Django
 
 #### notalib.django.auth.StaticBackend
 #### notalib.django.auth.SettingsBackend
@@ -367,9 +367,11 @@ class SomeViewSet(...):
 ```
 
 
-## Django/Clickhouse
+## <s>Django/Clickhouse</s>
 
-_Stage: alpha_
+_Deprecated since 2.2.0._
+
+<details><summary>Click to expand</summary>
 
 Required packages: `clickhouse-sqlalchemy`
 
@@ -419,7 +421,9 @@ wait_result("SOME_DATABASE", "SOME_TABLE_IN_DATABASE")
 # UPDATE complete, continue
 ```
 
-## Tablib-related
+</details>
+
+## Tools for Tablib
 
 _:warning: Experimental API. Subject to change. Don't use in production. You've been warned._
 
