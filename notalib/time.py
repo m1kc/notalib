@@ -10,6 +10,9 @@ class Timing(object):
 		with timing:
 			do_something()
 		print(timing.result)
+
+	TODO:
+		* Add the examples section.
 	"""
 	def __init__(self, auto_print=False):
 		super(Timing, self).__init__()

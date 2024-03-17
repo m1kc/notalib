@@ -8,6 +8,7 @@ class MonthField(forms.CharField):
 		try:
 			return parse_month(value)
 		except:
+			# FIXME: The "parse_month" function accepts another format "YYYY-M"
 			raise forms.ValidationError('Not a valid month (expected YYYY-MM)')
 
 
@@ -30,7 +31,7 @@ class IntegerArrayField(forms.CharField):
 		self.sep = sep
 
 	def clean(self, value):
-		if value is None:
+		if value is None:		# An empty string will raise an exception
 			return None
 		return list(map(int, value.split(self.sep)))
 
@@ -57,7 +58,7 @@ class MonthArrayField(forms.CharField):
 
 	def clean(self, value):
 		if value is None: return None
-		value = value.split('|')
+		value = value.split(self.sep)
 		try:
 			return list(map(lambda value: parse_month(value), value))
 		except:
