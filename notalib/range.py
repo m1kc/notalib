@@ -13,6 +13,7 @@ class Range(object):
 		# self.duration = self.end - self.start
 
 	def is_overlapped(self, other_range):
+		# TODO: Can be simplified
 		if max(self.start, other_range.start) < min(self.end, other_range.end):
 			return True
 		else:

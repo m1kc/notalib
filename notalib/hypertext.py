@@ -33,7 +33,7 @@ class TablePrinter():
 	Two ways to use it:
 
 	* Call header() / entry() / footer() manually
-	
+
 	```
 	>>> from notalib.hypertext import TablePrinter
 	>>> t = TablePrinter(['a', 'b'])
@@ -48,7 +48,7 @@ class TablePrinter():
 	```
 
 	* Pass an iterable to iterator_over()
-	
+
 	```
 	>>> from notalib.hypertext import TablePrinter
 	>>> t = TablePrinter(['a', 'b'])
