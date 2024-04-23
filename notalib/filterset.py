@@ -18,7 +18,7 @@ class FilterSet:
 
 	def __getattr__(self, name: str):
 		if name in self.__dict__:
-			return self.__dict__[name]
+			return self.__dict__[name]		# FIXME: This line is unreachable
 
 		assert (not self._frozen), "FilterSet is frozen"
 		return self.values[name]

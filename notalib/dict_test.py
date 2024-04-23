@@ -1,7 +1,11 @@
-from .dict import filter_dict, deep_merge
+from .dict import (
+	filter_dict, deep_merge, find_field, find_value, normalize_dict,
+)
+
+from re import escape
+from json import dumps
 
 import pytest
-from json import dumps
 
 
 FIRST_SRC_DICT = {
@@ -70,3 +74,69 @@ def test_deep_merge(orig, other, overwrite, expected_result):
 def test_deep_merge_raise_error(orig, other, conflict_path):
 	with pytest.raises(Exception, match=f"Conflict at {conflict_path}"):
 		deep_merge(orig, other)
+
+
+class TestFindField:
+	@pytest.mark.parametrize(
+		"source_dict, candidates, expected_result",
+		[
+			({'a': 1}, iter('abc'), 'a'),
+			({'c': 1}, ('a', 'b', 'c'), 'c'),
+			({'c': 1, 'b': 2}, ['a', 'b', 'c'], 'b'),
+		],
+	)
+	def test_find(self, source_dict, candidates, expected_result):
+		assert find_field(source_dict, candidates) == expected_result
+
+	@pytest.mark.parametrize(
+		"source_dict, candidates",
+		[
+			({}, []),
+			({}, [1]),
+			({4: 5}, [1, 2, 3]),
+			({'hello': 'world'}, ['world']),
+		],
+	)
+	def test_errors(self, source_dict, candidates):
+		with pytest.raises(ValueError, match=f"Can't find any of: {escape(str(candidates))}"):
+			find_field(source_dict, candidates)
+
+
+class TestFindValue:
+	@pytest.mark.parametrize(
+		"source_dict, candidates, expected_result",
+		[
+			({'a': 1}, iter('abc'), 1),
+			({'c': 1}, ('a', 'b', 'c'), 1),
+			({'c': 1, 'b': 2}, ['a', 'b', 'c'], 2),
+		],
+	)
+	def test_find(self, source_dict, candidates, expected_result):
+		assert find_value(source_dict, candidates) == expected_result
+
+	@pytest.mark.parametrize(
+		"source_dict, candidates",
+		[
+			({}, []),
+			({}, [1]),
+			({4: 5}, [1, 2, 3]),
+			({'hello': 'world'}, ['world']),
+		],
+	)
+	def test_errors(self, source_dict, candidates):
+		with pytest.raises(ValueError, match=f"Can't find any of: {escape(str(candidates))}"):
+			find_value(source_dict, candidates)
+
+
+@pytest.mark.parametrize(
+	"source_dict, replacements, allow_original_key, expected_result",
+	[
+		({}, {}, True, {}),
+		({'a': 1}, {'A': ['a1', 'a']}, False, {'A': 1}),
+		({'a': 1}, {'a': ['a1']}, True, {'a': 1}),
+		({'a': 1, 'b': 2, 'c': 3}, {}, False, {}),
+		({'a': 1, 'b': 2, 'c': 3}, {'A': ['a1', 'a'], 'C': ['c1', 'c2', 'c']}, False, {'A': 1, 'C': 3}),
+	],
+)
+def test_normalize_dict(source_dict, replacements, allow_original_key, expected_result):
+	assert normalize_dict(source_dict, replacements, allow_original_key) == expected_result

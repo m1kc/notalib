@@ -24,7 +24,7 @@ class Combinator:
 				self.result += [[i]]
 		else:
 			newresult = []
-			for tuple in self.result:
+			for tuple in self.result:		# FIXME: Redefinition of standard type
 				for i in new_set:
 					newresult += [tuple + [i]]
 			self.result = newresult
