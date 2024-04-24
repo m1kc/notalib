@@ -2,7 +2,7 @@ from .models import Nothing
 from .serializers import NothingSerializer
 
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from rest_framework.decorators import renderer_classes
@@ -26,6 +26,12 @@ def auth_view(request):
 		return HttpResponse('{"result": "ok"}', status=200)
 	else:
 		return HttpResponse('{"result": "fail"}', status=403)
+
+
+@csrf_exempt
+def logout_view(request):
+	logout(request)
+	return HttpResponse('{"result": "ok"}', status=200)
 
 
 @renderer_classes([JSONRenderer])

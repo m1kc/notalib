@@ -1,4 +1,4 @@
-from notalib.django_xauth.views import auth_view
+from notalib.django_xauth.views import auth_view, logout_view
 from notalib.test_fakes import FakeFunction
 
 from unittest.mock import patch
@@ -29,3 +29,15 @@ def test_auth_view():
 			assert fake_login.last_call_args[1] == "USER INSTANCE"
 			assert response.status_code == 200
 			assert response.content == b'{"result": "ok"}'
+
+
+def test_logout_view():
+	request = HttpRequest()
+	fake_logout = FakeFunction()
+
+	with patch("notalib.django_xauth.views.logout", new=fake_logout):
+		response = logout_view(request)
+		assert fake_logout.call_count == 1
+		assert fake_logout.last_call_args[0] is request
+		assert response.status_code == 200
+		assert response.content == b'{"result": "ok"}'
