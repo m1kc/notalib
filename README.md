@@ -326,8 +326,9 @@ Endpoints for easier authentication in APIs. Requires Django REST framework.
 
 Provides endpoints:
 
-* `/xauth/check` — returns code 200 if client is authenticated (or global permissions are set to AllowAny), 403 if not
-* `/xauth/auth-post` — authenticates a client; accepts two POST parameters `username` and `password`; returns code 200 on success and 403 on failure
+* `GET /xauth/check` — returns code 200 if client is authenticated (or global permissions are set to AllowAny), 403 if not
+* `POST /xauth/auth-post` — authenticates a client; accepts two POST parameters `username` and `password`; returns code 200 on success and 403 on failure
+* `POST /xauth/logout` — de-authenticates a client
 
 How to use:
 
