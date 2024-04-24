@@ -1,5 +1,6 @@
-from .array import as_chunks, ensure_iterable
+from .array import as_chunks, ensure_iterable, batched
 
+import pytest
 from hypothesis import given
 from hypothesis.strategies import lists, integers
 
@@ -62,3 +63,20 @@ def test_ensure_iterable():
 	assert ensure_iterable('x') == ('x',)
 	assert ensure_iterable(['x']) == ['x']
 	assert ensure_iterable(('x', 'y')) == ('x', 'y')
+
+
+class TestBatched:
+	@pytest.mark.parametrize(
+		"iterable, size, expected_result",
+		[
+			([], 1, []),
+			('ABCDEFG', 3, [('A', 'B', 'C'), ('D', 'E', 'F'), ('G', )]),
+			((i for i in range(10)), 1, [(i, ) for i in range(10)]),
+		],
+	)
+	def test_normal(self, iterable, size, expected_result):
+		assert list(batched(iterable, size)) == expected_result
+
+	def test_errors(self):
+		with pytest.raises(ValueError, match='n must be at least one'):
+			list(batched([], 0))
