@@ -80,6 +80,7 @@ my_function('dog')
 
 #### notalib.array.batched
 
+Batch data from the iterable into tuples of length n.
 
 ```python
 from notalib.array import batched
@@ -91,7 +92,7 @@ def generate_numbers():
 
 
 batches = list(batched(generate_numbers(), 5))     # --> [(0, 1, 2, 3, 4), (5, 6, 7, 8, 9)]
-batches = list(batched("Hello", 2))     # --> [('H', 'e'), ('l', 'l'), ('o', )]
+batches = list(batched("Hello", 2))     # --> [('H', 'e'), ('l', 'l'), ('o',)]
 ```
 
 #### notalib.combinator.Combinator :fire:
