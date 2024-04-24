@@ -26,8 +26,8 @@ def batched(iterable: Iterable[T], n: int) -> Generator[Tuple[T, ...], None, Non
 	Batch data from the iterable into tuples of length n.
 
 	Args:
-		iterable - An iterable to batch.
-		n - Batch size.
+		iterable: An iterable to batch.
+		n: Batch size.
 
 	Notes:
 		* Src: https://docs.python.org/3.12/library/itertools.html#itertools.batched
