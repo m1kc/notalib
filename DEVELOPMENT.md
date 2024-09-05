@@ -31,3 +31,9 @@ If you still want to use your username and password, you can do so with the foll
 ```
 poetry config http-basic.pypi <username> <password>
 ```
+
+If you want to use plaintext config instead of keyring:
+
+```
+poetry config keyring.enabled false
+```
