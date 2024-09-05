@@ -314,6 +314,15 @@ tag = get_last_tag()
 # Tag(hash='c4b6e06f57ab4773e2881d286804d4e3141b5195', label='v1.4.0')
 ```
 
+#### notalib.file_iterator.file_iterator
+Iterates over byte buffer and yields chunks of specified size.
+
+```python
+with open("<file_path>", mode="rb") as file:
+    for chunk in file_iterator(file):
+        ...
+```
+
 ## Tools for Pandas
 
 #### notalib.pandas.pandasplus.row_to_dict
@@ -382,6 +391,19 @@ class SomeViewSet(...):
     def list(self, request, *args, **kwargs):
         ...
         return stream_json(data)
+```
+
+
+#### notalib.django.bytes_stream.get_stream_bytes_response
+
+Stream bytes IO part by the RANGE header value or all buffer content.
+
+```python
+class SomeView(...):
+    def get(self, request, *args, **kwargs):
+        with open("<file_path>", mode="rb") as file:
+            ...
+            return get_stream_bytes_response(file, request, content_type="<file_content_type>")
 ```
 
 
