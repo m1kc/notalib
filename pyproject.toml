@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "notalib"
-version = "2.4.0"
+version = "2.5.0-rc0"
 description = "A collection of utility functions & classes"
 authors = ["m1kc (Max Musatov) <m1kc@yandex.ru>"]
 license = "MIT"
