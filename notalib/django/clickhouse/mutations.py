@@ -48,7 +48,12 @@ def is_mutations_running(db_name: str, table_name: str) -> bool:
 		Returns True if there are running mutations, otherwise False.
 	"""
 	query = Query()
-	query.q = text("SELECT 1 FROM system.mutations WHERE database = :db_name AND table = :table_name AND is_done = 0")
+	query.q = text("""\
+SELECT 1
+FROM system.mutations
+WHERE database = :db_name AND table = :table_name AND is_done = 0
+LIMIT 1
+""")
 	query.params = {"db_name": db_name, "table_name": table_name}
 
 	return bool(query.execute_list())
