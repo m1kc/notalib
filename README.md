@@ -451,6 +451,15 @@ get_mutations_in_progress_count("SOME_DATABASE", "SOME_TABLE_IN_DATABASE")
 # 5
 ```
 
+#### notalib.django.clickhouse.mutations.is_mutations_running
+
+True or False, depending on the presence of unfulfilled mutations.
+
+```python
+is_mutations_running("SOME_DATABASE", "SOME_TABLE_IN_DATABASE")
+True
+```
+
 #### notalib.django.clickhouse.wait.wait_result :fire:
 
 Waits until all mutations for the given table are complete.
