@@ -42,10 +42,18 @@ class Range(object):
 
 class InfiniteRange(Range):
 	"""
-	Like the Range, but supports infinite bounds represented by None values.
+	InfiniteRange is an extended version of the Range which allows not to specify the boundaries of range,
+	which makes it infinite.
+
+	Attributes:
+		start: Any comparable value or None.
+		end: Any comparable value or None.
 
 	Notes:
 		* The behavior of the `is_overlapped` method differs from that of the `Range` class.
+		* Can be used as dict keys.
+		* Allows to use the `in` operator with range.
+		* Supports comparison operation.
 	"""
 	def __init__(self, start=None, end=None):
 		super().__init__(start, end)
@@ -115,6 +123,9 @@ class InfiniteRange(Range):
 		return max(self.start, other.start) <= min(self.end, other.end)
 
 	def get_overlapped_range(self, other: Range) -> Optional["InfiniteRange"]:
+		"""
+		Returns a new range based on the intersection of the current range with another.
+		"""
 		if self.is_overlapped(other):
 			return self.__class__(
 				self.get_max_start(self.start, other.start),
