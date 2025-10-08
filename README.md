@@ -264,6 +264,42 @@ p.tick(caption=my_order.time_created)
 ```
 
 #### notalib.range.Range
+#### notalib.range.InfiniteRange
+
+InfiniteRange is an extended version of the Range which allows not to specify the boundaries of range, which makes it infinite.
+
+```python
+r = InfiniteRange()     # (-∞, +∞)
+assert 1000 in r
+assert -1000 in r
+
+r = InfiniteRange(-100)     # [-100; +∞)
+assert -1000 not in r
+assert -100 in r
+assert 1000 in r
+
+r = InfiniteRange(None, 100)        # (-∞, 100]
+assert -1000 in r
+assert 100 in r
+assert 1000 not in r
+
+r = InfiniteRange(100, 100)     # [-100, 100]
+assert -1000 not in r
+assert -100 in r
+assert 0 in r
+assert 100 in r
+assert 1000 not in r
+
+assert InfiniteRange(-100, 100) == InfiniteRange(-100, 100)
+assert InfiniteRange(-100, 100).get_overlapped_range(InfiniteRange(-50, 50)) == InfiniteRange(-50, 50)
+assert InfiniteRange(-100, 100).concat(InfiniteRange(-50, 150)) == InfiniteRange(-100, 150)
+assert InfiniteRange.squash(
+    InfiniteRange(10, 50),
+    InfiniteRange(None, 10),
+    InfiniteRange(50, None),
+) == [InfiniteRange(None, None)]
+```
+
 #### notalib.time.Timing :fire:
 
 Measures time spent on executing your code. Killer feature: it can be used as a reusable context.
